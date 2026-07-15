@@ -196,10 +196,27 @@
                 <button onclick="filterCategory('gmail')" id="tab-gmail" class="px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-gray-300 text-xs font-bold rounded-xl cursor-pointer">Gmail ngoại</button>
                 <button onclick="filterCategory('tool')" id="tab-tool" class="px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-gray-300 text-xs font-bold rounded-xl cursor-pointer">Tool & Software</button>
                 <button onclick="filterCategory('unlock')" id="tab-unlock" class="px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-gray-300 text-xs font-bold rounded-xl cursor-pointer">Mở Khóa Account</button>
+                <button onclick="filterCategory('game')" id="tab-game" class="px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-gray-300 text-xs font-bold rounded-xl cursor-pointer">Game</button>
             </div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Sản phẩm mới: Bán Tài Khoản Game (Free Fire & Roblox) -->
+            <div class="product-card bg-slate-950/40 rounded-2xl border border-slate-900 overflow-hidden hover:border-red-500/30 hover:shadow-2xl hover:shadow-red-950/10 hover:-translate-y-1 duration-300" data-category="game">
+                <div class="p-6">
+                    <span class="bg-yellow-950/50 text-yellow-400 text-xs font-bold px-2.5 py-1 rounded-lg border border-yellow-900/30">Thu Mua Tài Khoản</span>
+                    <h3 class="text-lg font-extrabold text-white mt-4">Thu Mua Acc Free Fire / Roblox</h3>
+                    <p class="text-xs text-gray-400 mt-2">Nhận thanh lý acc Free Fire, Roblox giá cực tốt. Admin kiểm tra duyệt trực tiếp và chuyển khoản ngân hàng siêu tốc.</p>
+                    <div class="flex items-center justify-between mt-6 border-t border-slate-900/80 pt-4">
+                        <div>
+                            <span class="text-xs text-gray-500">Giá thu mua:</span>
+                            <p class="text-xl font-black text-yellow-500">Thỏa thuận</p>
+                        </div>
+                        <button onclick="openGameModal()" class="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2.5 px-4 rounded-xl text-sm cursor-pointer active:scale-95 shadow-md shadow-yellow-950/20">Bán Ngay</button>
+                    </div>
+                </div>
+            </div>
+
             <!-- Sản phẩm mới 1: Mở khóa Facebook -->
             <div class="product-card bg-slate-950/40 rounded-2xl border border-slate-900 overflow-hidden hover:border-red-500/30 hover:shadow-2xl hover:shadow-red-950/10 hover:-translate-y-1 duration-300" data-category="unlock">
                 <div class="p-6">
@@ -337,6 +354,25 @@
     <button id="backToTop" class="fixed bottom-6 right-6 z-30 bg-red-600 hover:bg-red-700 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg cursor-pointer transition-all opacity-0 translate-y-5 pointer-events-none active:scale-90">
         <i class="fa-solid fa-arrow-up"></i>
     </button>
+
+    <!-- ================= MODAL THÔNG BÁO THÀNH CÔNG SANG TRỌNG GIỮA MÀN HÌNH ================= -->
+    <div id="successPopup" class="fixed inset-0 bg-black/90 z-[100] flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 px-4 backdrop-blur-lg">
+        <div class="bg-gradient-to-br from-slate-900 to-slate-950 border border-emerald-500/30 w-full max-w-md rounded-3xl shadow-2xl p-8 text-center transform scale-95 transition-transform duration-300" id="successPopupContent">
+            <div class="w-20 h-20 bg-emerald-500/10 border border-emerald-500/30 rounded-full flex items-center justify-center text-4xl text-emerald-400 mx-auto mb-6 animate-bounce">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <h3 class="text-2xl font-black text-white">Đơn Hàng Đã Gửi Thành Công!</h3>
+            <p class="text-gray-400 text-sm mt-3 leading-relaxed">
+                Hệ thống Hồng Hải MMO đã ghi nhận đơn thanh lý tài khoản game của bạn. Admin sẽ trực tiếp login, định giá và thực hiện chuyển khoản ngay lập tức cho bạn.
+            </p>
+            <div class="mt-6 p-4 bg-emerald-950/20 border border-emerald-900/30 rounded-2xl text-xs text-emerald-400 font-bold">
+                Vui lòng kiểm tra tài khoản ngân hàng trong 5 - 15 phút tới.
+            </div>
+            <button onclick="closeSuccessPopup()" class="w-full bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white font-extrabold py-4 rounded-2xl mt-6 cursor-pointer shadow-lg shadow-emerald-950/30 text-sm tracking-wide">
+                Tuyệt Vời, Tôi Đã Hiểu
+            </button>
+        </div>
+    </div>
 
     <!-- ================= MODAL CHUNG (TÍCH HỢP TOÀN BỘ LOGIC CŨ + MENU MỞ KHÓA MỚI) ================= -->
     <div id="authModal" class="fixed inset-0 bg-black/80 z-50 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 px-4 backdrop-blur-md">
@@ -578,6 +614,81 @@
                 </div>
             </div>
 
+            <!-- ================= CHỨC NĂNG MỚI: MENU BÁN TÀI KHOẢN GAME ================= -->
+            <div id="gameFormArea" class="hidden">
+                <div class="text-center mb-6">
+                    <h3 class="text-2xl font-black text-white flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-gamepad text-yellow-500"></i> Thanh Lý Acc Game
+                    </h3>
+                    <p class="text-xs text-gray-400 mt-1">Cung cấp thông tin tài khoản game của bạn</p>
+                </div>
+
+                <div class="space-y-4">
+                    <!-- Tabs chọn loại Game cực đẹp -->
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Chọn Game thanh lý</label>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button onclick="switchGameTab('ff')" id="gameTabFF" class="py-2.5 bg-yellow-600 text-white border border-yellow-500 rounded-xl font-bold text-sm transition-all cursor-pointer">Free Fire</button>
+                            <button onclick="switchGameTab('roblox')" id="gameTabRoblox" class="py-2.5 bg-slate-900 text-gray-300 border border-slate-800 rounded-xl font-bold text-sm hover:border-yellow-500/50 hover:text-yellow-400 transition-all cursor-pointer">Roblox</button>
+                        </div>
+                    </div>
+
+                    <!-- Layout form Free Fire -->
+                    <div id="formFieldsFF" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-1.5">Gmail liên kết game</label>
+                            <input type="email" id="ffEmail" placeholder="example@gmail.com" class="w-full px-4 py-3 bg-slate-900/80 border border-slate-800 rounded-xl focus:outline-none focus:border-yellow-500 focus:bg-slate-900 focus:text-white text-sm transition-all">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-1.5">Mật khẩu Mail xác thực</label>
+                            <input type="password" id="ffMailPass" placeholder="Nhập mật khẩu mail" class="w-full px-4 py-3 bg-slate-900/80 border border-slate-800 rounded-xl focus:outline-none focus:border-yellow-500 focus:bg-slate-900 focus:text-white text-sm transition-all">
+                        </div>
+                    </div>
+
+                    <!-- Layout form Roblox (Ẩn mặc định) -->
+                    <div id="formFieldsRoblox" class="space-y-4 hidden">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-1.5">Tên người dùng (Username Roblox)</label>
+                            <input type="text" id="robloxUser" placeholder="Nhập tên tài khoản" class="w-full px-4 py-3 bg-slate-900/80 border border-slate-800 rounded-xl focus:outline-none focus:border-yellow-500 focus:bg-slate-900 focus:text-white text-sm transition-all">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-1.5">Mật khẩu Roblox</label>
+                            <input type="password" id="robloxPass" placeholder="Nhập mật khẩu game" class="w-full px-4 py-3 bg-slate-900/80 border border-slate-800 rounded-xl focus:outline-none focus:border-yellow-500 focus:bg-slate-900 focus:text-white text-sm transition-all">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-1.5">Email liên kết Roblox</label>
+                            <input type="email" id="robloxEmail" placeholder="example@gmail.com" class="w-full px-4 py-3 bg-slate-900/80 border border-slate-800 rounded-xl focus:outline-none focus:border-yellow-500 focus:bg-slate-900 focus:text-white text-sm transition-all">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-1.5">Mật khẩu Email</label>
+                            <input type="password" id="robloxEmailPass" placeholder="Nhập mật khẩu Email liên kết" class="w-full px-4 py-3 bg-slate-900/80 border border-slate-800 rounded-xl focus:outline-none focus:border-yellow-500 focus:bg-slate-900 focus:text-white text-sm transition-all">
+                        </div>
+                    </div>
+
+                    <!-- Chức năng tải ảnh QR Nhận tiền -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-1.5">Tải ảnh Mã QR Nhận Tiền của bạn</label>
+                        <div class="relative flex flex-col items-center justify-center border-2 border-dashed border-slate-800 rounded-2xl p-4 hover:border-yellow-500/50 transition-all cursor-pointer bg-slate-900/40">
+                            <input type="file" id="gameQrImage" accept="image/*" onchange="previewQrUpload(event)" class="absolute inset-0 opacity-0 cursor-pointer">
+                            <div id="qrUploadPlaceholder" class="text-center">
+                                <i class="fa-solid fa-qrcode text-3xl text-gray-500 mb-2"></i>
+                                <p class="text-xs text-gray-400">Nhấp hoặc thả file ảnh QR vào đây</p>
+                            </div>
+                            <img id="qrUploadPreview" class="hidden max-h-32 rounded-lg object-contain mt-2" alt="Preview QR">
+                        </div>
+                    </div>
+
+                    <!-- Ghi chú lưu ý -->
+                    <div class="p-3 bg-yellow-950/20 border border-yellow-900/30 rounded-xl text-xs text-yellow-400 leading-relaxed">
+                        <span class="font-black uppercase tracking-wider"><i class="fa-solid fa-triangle-exclamation"></i> GHI CHÚ:</span> Admin sẽ login (đăng nhập) và định giá tài khoản, sau đó admin sẽ tự động chuyển khoản (CK) trực tiếp vào mã QR nhận tiền bạn gửi.
+                    </div>
+
+                    <button onclick="submitGameOrder()" class="w-full bg-yellow-600 hover:bg-yellow-700 text-white py-3.5 rounded-xl font-bold shadow-lg transition-all text-sm cursor-pointer flex items-center justify-center gap-1 active:scale-98">
+                        Xác Nhận & Gửi Đơn <i class="fa-solid fa-paper-plane ml-1"></i>
+                    </button>
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -587,6 +698,7 @@
         let currentUser = null; 
         let selectedAmount = 0; 
         let activeUnlockType = ''; // 'fb' hoặc 'tiktok'
+        let activeGameType = 'ff'; // 'ff' hoặc 'roblox'
 
         let activeProduct = {
             name: '',
@@ -605,6 +717,7 @@
         const historyArea = document.getElementById('historyArea');
         const buyProductArea = document.getElementById('buyProductArea');
         const unlockFormArea = document.getElementById('unlockFormArea');
+        const gameFormArea = document.getElementById('gameFormArea');
 
         const modalTitle = document.getElementById('modalTitle');
         const modalSub = document.getElementById('modalSub');
@@ -627,7 +740,7 @@
         // 1. CHỨC NĂNG LỌC SẢN PHẨM (TABS FILTER)
         function filterCategory(category) {
             const cards = document.querySelectorAll('.product-card');
-            const tabs = ['all', 'facebook', 'gmail', 'tool', 'unlock'];
+            const tabs = ['all', 'facebook', 'gmail', 'tool', 'unlock', 'game'];
             
             tabs.forEach(t => {
                 const btn = document.getElementById(`tab-${t}`);
@@ -700,6 +813,7 @@
             historyArea.classList.add('hidden');
             buyProductArea.classList.add('hidden');
             unlockFormArea.classList.add('hidden');
+            gameFormArea.classList.add('hidden');
 
             if (mode === 'deposit') {
                 if (!currentUser) {
@@ -721,6 +835,8 @@
                 buyProductArea.classList.remove('hidden');
             } else if (mode === 'unlock') {
                 unlockFormArea.classList.remove('hidden');
+            } else if (mode === 'game') {
+                gameFormArea.classList.remove('hidden');
             } else {
                 authFormArea.classList.remove('hidden');
                 updateModalUI();
@@ -744,6 +860,17 @@
             document.getElementById('fbPass').value = '';
             document.getElementById('tiktokId').value = '';
             document.getElementById('zaloContact').value = '';
+
+            // Reset Game Fields
+            document.getElementById('ffEmail').value = '';
+            document.getElementById('ffMailPass').value = '';
+            document.getElementById('robloxUser').value = '';
+            document.getElementById('robloxPass').value = '';
+            document.getElementById('robloxEmail').value = '';
+            document.getElementById('robloxEmailPass').value = '';
+            document.getElementById('gameQrImage').value = '';
+            document.getElementById('qrUploadPreview').classList.add('hidden');
+            document.getElementById('qrUploadPlaceholder').classList.remove('hidden');
         }
 
         modal.addEventListener('click', (e) => {
@@ -795,7 +922,7 @@
             openModal('buy');
         }
 
-        // CHỨC NĂNG MỚI: Mở giao diện điền thông tin mở khóa riêng biệt
+        // CHỨC NĂNG: Mở giao diện điền thông tin mở khóa riêng biệt
         function openUnlockModal(type) {
             if (!currentUser) {
                 showCustomToast('Yêu Cầu Đăng Nhập', 'Vui lòng đăng nhập trước khi mua hàng.', 'warning');
@@ -830,7 +957,7 @@
             openModal('unlock');
         }
 
-        // CHỨC NĂNG MỚI: Tiếp tục thanh toán và chuyển cấu trúc sang bảng thanh toán bình thường
+        // CHỨC NĂNG: Tiếp tục thanh toán và chuyển cấu trúc sang bảng thanh toán bình thường
         function proceedToUnlockPayment() {
             const zalo = document.getElementById('zaloContact').value.trim();
             if (!zalo) {
@@ -862,6 +989,102 @@
 
             calculateTotalBuy();
             openModal('buy');
+        }
+
+        // CHỨC NĂNG MỚI: Mở menu thông tin bán tài khoản game
+        function openGameModal() {
+            if (!currentUser) {
+                showCustomToast('Yêu Cầu Đăng Nhập', 'Vui lòng đăng nhập để thực hiện bán nick.', 'warning');
+                openModal('login');
+                return;
+            }
+            switchGameTab('ff');
+            openModal('game');
+        }
+
+        // CHỨC NĂNG MỚI: Chuyển tab giữa Free Fire và Roblox
+        function switchGameTab(type) {
+            activeGameType = type;
+            const tabFF = document.getElementById('gameTabFF');
+            const tabRoblox = document.getElementById('gameTabRoblox');
+            const fieldsFF = document.getElementById('formFieldsFF');
+            const fieldsRoblox = document.getElementById('formFieldsRoblox');
+
+            if (type === 'ff') {
+                tabFF.className = "py-2.5 bg-yellow-600 text-white border border-yellow-500 rounded-xl font-bold text-sm transition-all cursor-pointer";
+                tabRoblox.className = "py-2.5 bg-slate-900 text-gray-300 border border-slate-800 rounded-xl font-bold text-sm hover:border-yellow-500/50 hover:text-yellow-400 transition-all cursor-pointer";
+                fieldsFF.classList.remove('hidden');
+                fieldsRoblox.classList.add('hidden');
+            } else {
+                tabFF.className = "py-2.5 bg-slate-900 text-gray-300 border border-slate-800 rounded-xl font-bold text-sm hover:border-yellow-500/50 hover:text-yellow-400 transition-all cursor-pointer";
+                tabRoblox.className = "py-2.5 bg-yellow-600 text-white border border-yellow-500 rounded-xl font-bold text-sm transition-all cursor-pointer";
+                fieldsFF.classList.add('hidden');
+                fieldsRoblox.classList.remove('hidden');
+            }
+        }
+
+        // CHỨC NĂNG MỚI: Preview ảnh QR nạp tiền khi upload
+        function previewQrUpload(event) {
+            const input = event.target;
+            const preview = document.getElementById('qrUploadPreview');
+            const placeholder = document.getElementById('qrUploadPlaceholder');
+
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.classList.remove('hidden');
+                    placeholder.classList.add('hidden');
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        // CHỨC NĂNG MỚI: Gửi đơn thanh lý nick game & show popup cực hiện đại giữa màn hình
+        function submitGameOrder() {
+            // Xác thực dữ liệu form
+            if (activeGameType === 'ff') {
+                const email = document.getElementById('ffEmail').value.trim();
+                const mailPass = document.getElementById('ffMailPass').value.trim();
+                if (!email || !mailPass) {
+                    alert('Vui lòng nhập đầy đủ Gmail và Mật khẩu Mail xác thực!');
+                    return;
+                }
+            } else {
+                const robloxUser = document.getElementById('robloxUser').value.trim();
+                const robloxPass = document.getElementById('robloxPass').value.trim();
+                const robloxEmail = document.getElementById('robloxEmail').value.trim();
+                const robloxEmailPass = document.getElementById('robloxEmailPass').value.trim();
+                if (!robloxUser || !robloxPass || !robloxEmail || !robloxEmailPass) {
+                    alert('Vui lòng nhập đầy đủ thông tin tài khoản và mail xác thực Roblox!');
+                    return;
+                }
+            }
+
+            const qrInput = document.getElementById('gameQrImage');
+            if (qrInput.files.length === 0) {
+                alert('Vui lòng tải ảnh mã QR nhận tiền của bạn lên hệ thống!');
+                return;
+            }
+
+            // Đóng Modal hiện tại
+            closeModal();
+
+            // Mở popup thành công cực kỳ hiện đại ngay giữa màn hình
+            const popup = document.getElementById('successPopup');
+            const popupContent = document.getElementById('successPopupContent');
+            popup.classList.remove('opacity-0', 'pointer-events-none');
+            popupContent.classList.remove('scale-95');
+            popupContent.classList.add('scale-100');
+        }
+
+        // CHỨC NĂNG MỚI: Đóng popup thành công
+        function closeSuccessPopup() {
+            const popup = document.getElementById('successPopup');
+            const popupContent = document.getElementById('successPopupContent');
+            popup.classList.add('opacity-0', 'pointer-events-none');
+            popupContent.classList.remove('scale-100');
+            popupContent.classList.add('scale-95');
         }
 
         function changeBuyQuantity(change) {
