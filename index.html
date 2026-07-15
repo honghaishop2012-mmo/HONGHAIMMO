@@ -9,8 +9,10 @@
     <!-- Tích hợp FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Smooth transitions for all interactive elements */
-        button, a { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        /* Smooth transitions cho tất cả các phần tử tương tác */
+        button, a, input, select { 
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); 
+        }
         
         /* Hiệu ứng quét sáng (Shine) cho phần Tên Shop */
         @keyframes shine {
@@ -33,78 +35,93 @@
             transform: skewX(-25deg);
             animation: shine 4s infinite;
         }
+        /* Tùy chỉnh thanh cuộn siêu mảnh phong cách hiện đại */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ef4444;
+        }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans antialiased scroll-smooth">
+<body class="bg-[#0b0f19] text-gray-100 font-sans antialiased scroll-smooth selection:bg-red-500 selection:text-white">
 
-    <!-- TOAST NOTIFICATION -->
-    <div id="toastNotification" class="fixed top-5 right-5 z-50 transform translate-x-full opacity-0 transition-all duration-500 flex items-center px-5 py-3 rounded-2xl shadow-xl border bg-white/95 backdrop-blur-md border-gray-100 max-w-sm">
-        <div id="toastIconBg" class="p-2 rounded-xl mr-3 flex items-center justify-center text-base">
+    <!-- TOAST NOTIFICATION (Nâng cấp giao diện mờ kính - Glassmorphism) -->
+    <div id="toastNotification" class="fixed top-5 right-5 z-50 transform translate-x-full opacity-0 transition-all duration-500 flex items-center px-5 py-4 rounded-2xl shadow-2xl border bg-slate-900/90 backdrop-blur-md border-slate-800/80 max-w-sm">
+        <div id="toastIconBg" class="p-2.5 rounded-xl mr-3 flex items-center justify-center text-base">
             <i id="toastIcon" class="fa-solid"></i>
         </div>
         <div>
-            <h4 id="toastTitle" class="font-bold text-sm text-gray-900">Thông báo</h4>
-            <p id="toastSub" class="text-xs text-gray-500">Chi tiết nội dung</p>
+            <h4 id="toastTitle" class="font-bold text-sm text-white">Thông báo</h4>
+            <p id="toastSub" class="text-xs text-gray-400 mt-0.5">Chi tiết nội dung</p>
         </div>
     </div>
 
-    <!-- HEADER HIỆN ĐẠI (TÊN SHOP GRADIENT & GLOW) -->
-    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-40 border-b border-gray-100/80">
+    <!-- HEADER HIỆN ĐẠI (DARK GLASSMORPHISM) -->
+    <header class="bg-slate-950/80 backdrop-blur-md sticky top-0 z-40 border-b border-slate-900">
         <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between gap-4">
             
             <!-- Tên Shop cực kỳ hiện đại và sang trọng -->
             <a href="#" class="flex items-center gap-3 group shrink-0">
                 <!-- Logo biểu tượng chuyển màu thời thượng -->
                 <div class="relative">
-                    <div class="absolute inset-0 bg-gradient-to-tr from-red-600 to-orange-500 rounded-2xl blur-md opacity-40 group-hover:opacity-75 transition-opacity"></div>
+                    <div class="absolute inset-0 bg-gradient-to-tr from-red-600 to-orange-500 rounded-2xl blur-md opacity-50 group-hover:opacity-80 transition-opacity"></div>
                     <div class="relative bg-gradient-to-tr from-red-600 to-orange-500 text-white w-11 h-11 rounded-2xl font-black flex items-center justify-center shadow-lg tracking-wider text-lg">
                         HH
                     </div>
                 </div>
                 <!-- Chữ tên shop Gradient ánh bạc / đỏ chuyển màu -->
                 <div class="flex flex-col leading-tight">
-                    <span class="font-black text-lg sm:text-xl tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-gray-900 via-red-600 to-orange-500 shine-effect">
-                        HỒNG HẢI <span class="text-red-600">MMO</span>
+                    <span class="font-black text-lg sm:text-xl tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-red-500 to-orange-500 shine-effect">
+                        HỒNG HẢI <span class="text-red-500">MMO</span>
                     </span>
-                    <span class="text-[9px] uppercase tracking-widest text-gray-400 font-bold hidden sm:inline-block">Hệ thống MMO tự động hóa</span>
+                    <span class="text-[9px] uppercase tracking-widest text-gray-500 font-bold hidden sm:inline-block">Hệ thống MMO tự động hóa</span>
                 </div>
             </a>
             
             <!-- Menu chính -->
-            <nav class="hidden lg:flex space-x-8 font-semibold text-sm text-gray-600">
-                <a href="#" class="text-red-600 transition-colors">Trang Chủ</a>
-                <a href="#cua-hang" class="hover:text-red-600 transition-colors">Cửa Hàng</a>
-                <a href="#thong-ke" class="hover:text-red-600 transition-colors font-medium">Hệ Thống</a>
-                <a href="#dich-vu" class="hover:text-red-600 transition-colors">Dịch Vụ</a>
+            <nav class="hidden lg:flex space-x-8 font-semibold text-sm text-gray-300">
+                <a href="#" class="text-red-500 transition-colors">Trang Chủ</a>
+                <a href="#cua-hang" class="hover:text-red-500 transition-colors">Cửa Hàng</a>
+                <a href="#thong-ke" class="hover:text-red-500 transition-colors font-medium">Hệ Thống</a>
+                <a href="#dich-vu" class="hover:text-red-500 transition-colors">Dịch Vụ</a>
             </nav>
 
             <!-- Khu vực thành viên (Hiện đầy đủ Lịch Sử & Nạp Tiền) -->
             <div id="navAuthArea" class="flex items-center gap-2 sm:gap-3 shrink-0">
                 <!-- Chưa đăng nhập -->
                 <div id="guestMenu" class="flex items-center gap-2">
-                    <button onclick="openModal('login')" class="text-sm font-semibold text-gray-600 hover:text-red-600 px-3 py-2 rounded-xl cursor-pointer">Đăng Nhập</button>
-                    <button onclick="openModal('register')" class="bg-gray-900 hover:bg-black text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-lg shadow-gray-900/10 cursor-pointer">Đăng Ký</button>
+                    <button onclick="openModal('login')" class="text-sm font-semibold text-gray-300 hover:text-red-500 px-3 py-2 rounded-xl cursor-pointer">Đăng Nhập</button>
+                    <button onclick="openModal('register')" class="bg-red-600 hover:bg-red-700 active:scale-95 text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-lg shadow-red-950/20 cursor-pointer">Đăng Ký</button>
                 </div>
 
-                <!-- Đã đăng nhập (Giữ chữ "Lịch sử" và "Nạp tiền" đầy đủ) -->
+                <!-- Đã đăng nhập -->
                 <div id="userMenu" class="hidden flex items-center gap-2 sm:gap-3">
-                    <div class="text-right leading-tight max-w-[85px] sm:max-w-[150px]">
-                        <p class="text-[9px] sm:text-xs text-gray-400 font-bold truncate">Chào, <span id="userNameDisplay" class="text-gray-800 font-extrabold">Khách</span></p>
-                        <p class="text-xs sm:text-sm font-black text-red-600 truncate"><span id="userBalanceDisplay">0</span>đ</p>
+                    <div class="text-right leading-tight max-w-[95px] sm:max-w-[150px]">
+                        <p class="text-[10px] sm:text-xs text-gray-400 font-bold truncate">Chào, <span id="userNameDisplay" class="text-white font-extrabold">Khách</span></p>
+                        <p class="text-xs sm:text-sm font-black text-red-500 truncate"><span id="userBalanceDisplay">0</span>đ</p>
                     </div>
                     
                     <!-- Nút Nạp Tiền -->
-                    <button onclick="openModal('deposit')" class="bg-green-50 hover:bg-green-600 text-green-700 hover:text-white px-2.5 py-2 sm:px-3.5 sm:py-2 rounded-xl text-[10px] sm:text-xs font-bold border border-green-100 hover:border-green-600 flex items-center gap-1 shrink-0 cursor-pointer">
+                    <button onclick="openModal('deposit')" class="bg-emerald-950/40 hover:bg-emerald-600 active:scale-95 text-emerald-400 hover:text-white px-2.5 py-2 sm:px-3.5 sm:py-2 rounded-xl text-[10px] sm:text-xs font-bold border border-emerald-900/50 hover:border-emerald-600 flex items-center gap-1 shrink-0 cursor-pointer">
                         <i class="fa-solid fa-wallet"></i> <span>Nạp tiền</span>
                     </button>
                     
                     <!-- Nút Lịch Sử -->
-                    <button onclick="openModal('history')" class="bg-gray-50 hover:bg-gray-800 text-gray-600 hover:text-white px-2.5 py-2 sm:px-3.5 sm:py-2 rounded-xl text-[10px] sm:text-xs font-bold border border-gray-100 hover:border-gray-800 flex items-center gap-1 shrink-0 cursor-pointer">
+                    <button onclick="openModal('history')" class="bg-slate-900 hover:bg-slate-800 active:scale-95 text-gray-300 hover:text-white px-2.5 py-2 sm:px-3.5 sm:py-2 rounded-xl text-[10px] sm:text-xs font-bold border border-slate-800 flex items-center gap-1 shrink-0 cursor-pointer">
                         <i class="fa-solid fa-clock-rotate-left"></i> <span>Lịch sử</span>
                     </button>
 
                     <!-- Đăng Xuất -->
-                    <button onclick="logout()" class="text-gray-400 hover:text-red-600 p-1.5 transition-colors cursor-pointer shrink-0" title="Đăng xuất">
+                    <button onclick="logout()" class="text-gray-500 hover:text-red-500 p-1.5 transition-colors cursor-pointer shrink-0 active:scale-90" title="Đăng xuất">
                         <i class="fa-solid fa-arrow-right-from-bracket"></i>
                     </button>
                 </div>
@@ -113,7 +130,7 @@
     </header>
 
     <!-- BANNER KHUYẾN MÃI CHẠY CHỮ CHUYỂN ĐỘNG (NEWS TICKER) -->
-    <div class="bg-gradient-to-r from-red-600 to-orange-600 text-white py-2 px-4 overflow-hidden relative z-10 text-xs font-bold">
+    <div class="bg-gradient-to-r from-red-600 to-orange-600 text-white py-2 px-4 overflow-hidden relative z-10 text-xs font-bold shadow-md shadow-red-950/10">
         <div class="max-w-7xl mx-auto flex items-center gap-3">
             <span class="bg-white/20 px-2 py-0.5 rounded text-[10px] tracking-wide shrink-0">TIN TỨC</span>
             <marquee class="cursor-pointer" scrollamount="4">Hệ thống nạp tiền tự động qua QR Ngân hàng hoạt động 24/7. Khuyến mãi +5% giá trị nạp cho mọi thành viên đăng ký mới trong tuần này!</marquee>
@@ -121,44 +138,44 @@
     </div>
 
     <!-- HERO SECTION -->
-    <section class="relative bg-gradient-to-br from-gray-950 via-gray-900 to-red-950 text-white py-24 px-4 overflow-hidden">
+    <section class="relative bg-gradient-to-br from-slate-950 via-[#0a0f1d] to-[#25080c] text-white py-24 px-4 overflow-hidden">
         <div class="max-w-7xl mx-auto text-center relative z-10">
-            <span class="inline-block px-3.5 py-1.5 bg-red-600/10 text-red-400 rounded-full text-xs font-bold uppercase tracking-widest border border-red-600/20 mb-6">Hệ Thống MMO Tự Động 2026</span>
+            <span class="inline-block px-3.5 py-1.5 bg-red-500/10 text-red-400 rounded-full text-xs font-bold uppercase tracking-widest border border-red-500/20 mb-6">Hệ Thống MMO Tự Động 2026</span>
             <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tighter mb-8 leading-none max-w-4xl mx-auto">
                 Giải Pháp Bứt Phá Doanh Thu<br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500">Kiếm Tiền Online</span>
             </h1>
-            <p class="text-gray-300 text-base sm:text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
+            <p class="text-gray-400 text-base sm:text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
                 Tạo Hoá Hồng Hải MMO cung cấp các tài khoản chất lượng, tool nuôi nick tự động hóa vượt trội giúp bạn tối ưu thời gian và bùng nổ hiệu suất.
             </p>
             <div class="flex flex-col sm:flex-row justify-center gap-4 max-w-md mx-auto sm:max-w-none">
                 <a href="#cua-hang" class="bg-white text-black px-8 py-4 rounded-2xl font-bold hover:scale-105 shadow-xl shadow-white/5 text-center">Mua Tài Khoản / Tool</a>
-                <button onclick="handleHeroDepositBtn()" class="bg-white/10 hover:bg-white/20 border border-white/10 text-white px-8 py-4 rounded-2xl font-bold hover:scale-105 cursor-pointer flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-credit-card"></i> Nạp Tiền Ngay
+                <button onclick="handleHeroDepositBtn()" class="bg-white/10 hover:bg-white/20 border border-white/15 text-white px-8 py-4 rounded-2xl font-bold hover:scale-105 cursor-pointer flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-credit-card text-red-400"></i> Nạp Tiền Ngay
                 </button>
             </div>
         </div>
-        <div class="absolute -top-40 -right-40 w-96 h-96 bg-red-600 rounded-full blur-3xl opacity-15"></div>
-        <div class="absolute -bottom-40 -left-40 w-96 h-96 bg-orange-600 rounded-full blur-3xl opacity-15"></div>
+        <div class="absolute -top-40 -right-40 w-96 h-96 bg-red-600 rounded-full blur-3xl opacity-10"></div>
+        <div class="absolute -bottom-40 -left-40 w-96 h-96 bg-orange-600 rounded-full blur-3xl opacity-10"></div>
     </section>
 
     <!-- SECTION THỐNG KÊ UY TÍN (STATS SECTION) -->
-    <section id="thong-ke" class="py-12 bg-white border-b border-gray-100">
+    <section id="thong-ke" class="py-12 bg-slate-950/50 border-b border-slate-900">
         <div class="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             <div class="p-4">
-                <p class="text-2xl sm:text-3xl font-black text-gray-900">10,500+</p>
-                <p class="text-xs text-gray-400 font-semibold uppercase tracking-wider mt-1">Đơn hàng hoàn tất</p>
+                <p class="text-2xl sm:text-3xl font-black text-white">10,500+</p>
+                <p class="text-xs text-gray-500 font-semibold uppercase tracking-wider mt-1">Đơn hàng hoàn tất</p>
             </div>
-            <div class="p-4 border-l border-gray-100">
-                <p class="text-2xl sm:text-3xl font-black text-red-600">3,400+</p>
-                <p class="text-xs text-gray-400 font-semibold uppercase tracking-wider mt-1">Thành viên đăng ký</p>
+            <div class="p-4 border-l border-slate-900">
+                <p class="text-2xl sm:text-3xl font-black text-red-500">3,400+</p>
+                <p class="text-xs text-gray-500 font-semibold uppercase tracking-wider mt-1">Thành viên đăng ký</p>
             </div>
-            <div class="p-4 border-l border-gray-100">
-                <p class="text-2xl sm:text-3xl font-black text-gray-900">24/7</p>
-                <p class="text-xs text-gray-400 font-semibold uppercase tracking-wider mt-1">Hỗ trợ kỹ thuật</p>
+            <div class="p-4 border-l border-slate-900">
+                <p class="text-2xl sm:text-3xl font-black text-white">24/7</p>
+                <p class="text-xs text-gray-500 font-semibold uppercase tracking-wider mt-1">Hỗ trợ kỹ thuật</p>
             </div>
-            <div class="p-4 border-l border-gray-100">
-                <p class="text-2xl sm:text-3xl font-black text-green-600">99.9%</p>
-                <p class="text-xs text-gray-400 font-semibold uppercase tracking-wider mt-1">Hệ thống online</p>
+            <div class="p-4 border-l border-slate-900">
+                <p class="text-2xl sm:text-3xl font-black text-emerald-500">99.9%</p>
+                <p class="text-xs text-gray-500 font-semibold uppercase tracking-wider mt-1">Hệ thống online</p>
             </div>
         </div>
     </section>
@@ -166,63 +183,63 @@
     <!-- DANH SÁCH SẢN PHẨM / CỬA HÀNG (CÓ TABS LỌC DANH MỤC) -->
     <section id="cua-hang" class="py-20 max-w-7xl mx-auto px-4">
         <div class="text-center max-w-3xl mx-auto mb-12">
-            <h2 class="text-3xl font-black text-gray-900 tracking-tight">Cửa Hàng Tự Động</h2>
-            <p class="mt-3 text-gray-500">Hệ thống phân phối tài khoản và phần mềm tự động lấy mã sau 2 giây.</p>
+            <h2 class="text-3xl font-black text-white tracking-tight">Cửa Hàng Tự Động</h2>
+            <p class="mt-3 text-gray-400">Hệ thống phân phối tài khoản và phần mềm tự động lấy mã sau 2 giây.</p>
             
             <!-- Thanh lọc danh mục sản phẩm siêu mượt -->
             <div class="flex flex-wrap justify-center gap-2 mt-8">
-                <button onclick="filterCategory('all')" id="tab-all" class="px-5 py-2.5 bg-gray-900 text-white text-xs font-bold rounded-xl cursor-pointer">Tất cả sản phẩm</button>
-                <button onclick="filterCategory('facebook')" id="tab-facebook" class="px-5 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-bold rounded-xl cursor-pointer">Facebook</button>
-                <button onclick="filterCategory('gmail')" id="tab-gmail" class="px-5 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-bold rounded-xl cursor-pointer">Gmail ngoại</button>
-                <button onclick="filterCategory('tool')" id="tab-tool" class="px-5 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-bold rounded-xl cursor-pointer">Tool & Software</button>
+                <button onclick="filterCategory('all')" id="tab-all" class="px-5 py-2.5 bg-red-600 text-white text-xs font-bold rounded-xl cursor-pointer shadow-md shadow-red-950/20">Tất cả sản phẩm</button>
+                <button onclick="filterCategory('facebook')" id="tab-facebook" class="px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-gray-300 text-xs font-bold rounded-xl cursor-pointer">Facebook</button>
+                <button onclick="filterCategory('gmail')" id="tab-gmail" class="px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-gray-300 text-xs font-bold rounded-xl cursor-pointer">Gmail ngoại</button>
+                <button onclick="filterCategory('tool')" id="tab-tool" class="px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-gray-300 text-xs font-bold rounded-xl cursor-pointer">Tool & Software</button>
             </div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <!-- Sản phẩm 1 (Facebook) -->
-            <div class="product-card bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 duration-300" data-category="facebook">
+            <div class="product-card bg-slate-950/40 rounded-2xl border border-slate-900 overflow-hidden hover:border-red-500/30 hover:shadow-2xl hover:shadow-red-950/10 hover:-translate-y-1 duration-300" data-category="facebook">
                 <div class="p-6">
-                    <span class="bg-blue-50 text-blue-600 text-xs font-bold px-2.5 py-1 rounded-lg">Tài khoản Facebook</span>
-                    <h3 class="text-lg font-extrabold text-gray-950 mt-4">VIA Facebook Cổ Kháng 2FA</h3>
-                    <p class="text-xs text-gray-500 mt-1">Năm tạo: 2018-2022 | Đã bật bảo mật 2FA | Bao login</p>
-                    <div class="flex items-center justify-between mt-6 border-t border-gray-50 pt-4">
+                    <span class="bg-blue-950/50 text-blue-400 text-xs font-bold px-2.5 py-1 rounded-lg border border-blue-900/30">Tài khoản Facebook</span>
+                    <h3 class="text-lg font-extrabold text-white mt-4">VIA Facebook Cổ Kháng 2FA</h3>
+                    <p class="text-xs text-gray-400 mt-2">Năm tạo: 2018-2022 | Đã bật bảo mật 2FA | Bao login</p>
+                    <div class="flex items-center justify-between mt-6 border-t border-slate-900/80 pt-4">
                         <div>
-                            <span class="text-xs text-gray-400 line-through">120.000đ</span>
-                            <p class="text-xl font-black text-red-600">85,000đ</p>
+                            <span class="text-xs text-gray-500 line-through">120.000đ</span>
+                            <p class="text-xl font-black text-red-500">85,000đ</p>
                         </div>
-                        <button onclick="openBuyModal('VIA Facebook Cổ Kháng 2FA', 85000)" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2.5 px-4 rounded-xl text-sm cursor-pointer">Mua Ngay</button>
+                        <button onclick="openBuyModal('VIA Facebook Cổ Kháng 2FA', 85000)" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2.5 px-4 rounded-xl text-sm cursor-pointer active:scale-95 shadow-md shadow-red-950/20">Mua Ngay</button>
                     </div>
                 </div>
             </div>
 
             <!-- Sản phẩm 2 (Gmail) -->
-            <div class="product-card bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 duration-300" data-category="gmail">
+            <div class="product-card bg-slate-950/40 rounded-2xl border border-slate-900 overflow-hidden hover:border-red-500/30 hover:shadow-2xl hover:shadow-red-950/10 hover:-translate-y-1 duration-300" data-category="gmail">
                 <div class="p-6">
-                    <span class="bg-purple-50 text-purple-600 text-xs font-bold px-2.5 py-1 rounded-lg">Tài khoản Gmail</span>
-                    <h3 class="text-lg font-extrabold text-gray-950 mt-4">Gmail Ngoại Ngâm Trên 30 Ngày</h3>
-                    <p class="text-xs text-gray-500 mt-1">Đã verphone ngoại | IP sạch | Chuyên dụng làm MMO</p>
-                    <div class="flex items-center justify-between mt-6 border-t border-gray-50 pt-4">
+                    <span class="bg-purple-950/50 text-purple-400 text-xs font-bold px-2.5 py-1 rounded-lg border border-purple-900/30">Tài khoản Gmail</span>
+                    <h3 class="text-lg font-extrabold text-white mt-4">Gmail Ngoại Ngâm Trên 30 Ngày</h3>
+                    <p class="text-xs text-gray-400 mt-2">Đã verphone ngoại | IP sạch | Chuyên dụng làm MMO</p>
+                    <div class="flex items-center justify-between mt-6 border-t border-slate-900/80 pt-4">
                         <div>
-                            <span class="text-xs text-gray-400 line-through">8.000đ</span>
-                            <p class="text-xl font-black text-red-600">4,500đ</p>
+                            <span class="text-xs text-gray-500 line-through">8.000đ</span>
+                            <p class="text-xl font-black text-red-500">4,500đ</p>
                         </div>
-                        <button onclick="openBuyModal('Gmail Ngoại Ngâm Trên 30 Ngày', 4500)" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2.5 px-4 rounded-xl text-sm cursor-pointer">Mua Ngay</button>
+                        <button onclick="openBuyModal('Gmail Ngoại Ngâm Trên 30 Ngày', 4500)" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2.5 px-4 rounded-xl text-sm cursor-pointer active:scale-95 shadow-md shadow-red-950/20">Mua Ngay</button>
                     </div>
                 </div>
             </div>
 
             <!-- Sản phẩm 3 (Tool) -->
-            <div class="product-card bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 duration-300" data-category="tool">
+            <div class="product-card bg-slate-950/40 rounded-2xl border border-slate-900 overflow-hidden hover:border-red-500/30 hover:shadow-2xl hover:shadow-red-950/10 hover:-translate-y-1 duration-300" data-category="tool">
                 <div class="p-6">
-                    <span class="bg-green-50 text-green-600 text-xs font-bold px-2.5 py-1 rounded-lg">Phần Mềm / Tool</span>
-                    <h3 class="text-lg font-extrabold text-gray-950 mt-4">Tool Nuôi Nick TikTok & Nuôi Reg</h3>
-                    <p class="text-xs text-gray-500 mt-1">Hạn sử dụng: 30 ngày | Tự động tương tác chéo</p>
-                    <div class="flex items-center justify-between mt-6 border-t border-gray-50 pt-4">
+                    <span class="bg-emerald-950/50 text-emerald-400 text-xs font-bold px-2.5 py-1 rounded-lg border border-emerald-900/30">Phần Mềm / Tool</span>
+                    <h3 class="text-lg font-extrabold text-white mt-4">Tool Nuôi Nick TikTok & Nuôi Reg</h3>
+                    <p class="text-xs text-gray-400 mt-2">Hạn sử dụng: 30 ngày | Tự động tương tác chéo</p>
+                    <div class="flex items-center justify-between mt-6 border-t border-slate-900/80 pt-4">
                         <div>
-                            <span class="text-xs text-gray-400 line-through">450.000đ</span>
-                            <p class="text-xl font-black text-red-600">300,000đ</p>
+                            <span class="text-xs text-gray-500 line-through">450.000đ</span>
+                            <p class="text-xl font-black text-red-500">300,000đ</p>
                         </div>
-                        <button onclick="openBuyModal('Tool Nuôi Nick TikTok & Nuôi Reg', 300000)" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2.5 px-4 rounded-xl text-sm cursor-pointer">Mua Ngay</button>
+                        <button onclick="openBuyModal('Tool Nuôi Nick TikTok & Nuôi Reg', 300000)" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2.5 px-4 rounded-xl text-sm cursor-pointer active:scale-95 shadow-md shadow-red-950/20">Mua Ngay</button>
                     </div>
                 </div>
             </div>
@@ -230,47 +247,47 @@
     </section>
 
     <!-- DỊCH VỤ CHUYÊN NGHIỆP -->
-    <section id="dich-vu" class="py-20 bg-gray-100">
+    <section id="dich-vu" class="py-20 bg-slate-950/30 border-t border-slate-900">
         <div class="max-w-7xl mx-auto px-4">
             <div class="text-center max-w-3xl mx-auto">
-                <h2 class="text-3xl font-black text-gray-900 tracking-tight">Dịch Vụ Chuyên Nghiệp</h2>
-                <p class="mt-4 text-gray-600">Chúng tôi mang đến những giải pháp MMO chất lượng cao, uy tín và tự động hóa cao nhằm tối ưu chi phí và thời gian cho bạn.</p>
+                <h2 class="text-3xl font-black text-white tracking-tight">Dịch Vụ Chuyên Nghiệp</h2>
+                <p class="mt-4 text-gray-400">Chúng tôi mang đến những giải pháp MMO chất lượng cao, uy tín và tự động hóa cao nhằm tối ưu chi phí và thời gian cho bạn.</p>
             </div>
 
             <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-white p-8 rounded-3xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                    <div class="w-14 h-14 bg-red-50 text-red-600 rounded-2xl flex items-center justify-center text-2xl font-bold mb-6">
+                <div class="bg-[#0f1424] p-8 rounded-3xl border border-slate-900 hover:border-red-500/30 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                    <div class="w-14 h-14 bg-red-950/50 text-red-500 rounded-2xl flex items-center justify-center text-2xl font-bold mb-6 border border-red-900/20">
                         <i class="fa-solid fa-user-shield"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900">Cung Cấp Tài Khoản Cực Chất</h3>
-                    <p class="mt-3 text-gray-600 leading-relaxed">Cung cấp tài khoản quảng cáo, tài khoản mạng xã hội (Facebook, TikTok, Google) số lượng lớn, ngâm sẵn, độ kháng cao.</p>
+                    <h3 class="text-xl font-bold text-white">Cung Cấp Tài Khoản Cực Chất</h3>
+                    <p class="mt-3 text-gray-400 leading-relaxed">Cung cấp tài khoản quảng cáo, tài khoản mạng xã hội (Facebook, TikTok, Google) số lượng lớn, ngâm sẵn, độ kháng cao.</p>
                 </div>
 
-                <div class="bg-white p-8 rounded-3xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                    <div class="w-14 h-14 bg-red-50 text-red-600 rounded-2xl flex items-center justify-center text-2xl font-bold mb-6">
+                <div class="bg-[#0f1424] p-8 rounded-3xl border border-slate-900 hover:border-red-500/30 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                    <div class="w-14 h-14 bg-red-950/50 text-red-500 rounded-2xl flex items-center justify-center text-2xl font-bold mb-6 border border-red-900/20">
                         <i class="fa-solid fa-robot"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900">Công Cụ & Tool Tự Động</h3>
-                    <p class="mt-3 text-gray-600 leading-relaxed">Phát triển và phân phối các loại tool nuôi nick, cày tương tác, đăng bài tự động giúp bạn x10 năng suất làm việc.</p>
+                    <h3 class="text-xl font-bold text-white">Công Cụ & Tool Tự Động</h3>
+                    <p class="mt-3 text-gray-400 leading-relaxed">Phát triển và phân phối các loại tool nuôi nick, cày tương tác, đăng bài tự động giúp bạn x10 năng suất làm việc.</p>
                 </div>
 
-                <div class="bg-white p-8 rounded-3xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                    <div class="w-14 h-14 bg-red-50 text-red-600 rounded-2xl flex items-center justify-center text-2xl font-bold mb-6">
+                <div class="bg-[#0f1424] p-8 rounded-3xl border border-slate-900 hover:border-red-500/30 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                    <div class="w-14 h-14 bg-red-950/50 text-red-500 rounded-2xl flex items-center justify-center text-2xl font-bold mb-6 border border-red-900/20">
                         <i class="fa-solid fa-chalkboard-user"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900">Đào Tạo & Cố Vấn MMO</h3>
-                    <p class="mt-3 text-gray-600 leading-relaxed">Khóa học thực chiến từ cơ bản đến nâng cao về Dropshipping, Affiliate, MMO nước ngoài cùng đội ngũ chuyên gia.</p>
+                    <h3 class="text-xl font-bold text-white">Đào Tạo & Cố Vấn MMO</h3>
+                    <p class="mt-3 text-gray-400 leading-relaxed">Khóa học thực chiến từ cơ bản đến nâng cao về Dropshipping, Affiliate, MMO nước ngoài cùng đội ngũ chuyên gia.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- FOOTER -->
-    <footer id="lien-he" class="bg-gray-950 text-gray-400 py-16 border-t border-gray-900">
+    <footer id="lien-he" class="bg-slate-950 text-gray-500 py-16 border-t border-slate-900">
         <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-6">
             <div class="flex items-center gap-3">
                 <div class="bg-red-600 text-white w-9 h-9 rounded-xl font-bold flex items-center justify-center">H</div>
-                <p class="text-sm font-bold text-gray-300">&copy; 2026 Hồng Hải MMO. Bảo lưu mọi quyền.</p>
+                <p class="text-sm font-bold text-gray-400">&copy; 2026 Hồng Hải MMO. Bảo lưu mọi quyền.</p>
             </div>
             <div class="flex space-x-6 text-xl">
                 <a href="#" class="hover:text-white transition-colors"><i class="fa-brands fa-facebook"></i></a>
@@ -281,59 +298,59 @@
     </footer>
 
     <!-- NÚT CUỘN LÊN ĐẦU TRANG (BACK TO TOP) -->
-    <button id="backToTop" class="fixed bottom-6 right-6 z-30 bg-red-600 hover:bg-red-700 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg cursor-pointer transition-all opacity-0 translate-y-5 pointer-events-none">
+    <button id="backToTop" class="fixed bottom-6 right-6 z-30 bg-red-600 hover:bg-red-700 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg cursor-pointer transition-all opacity-0 translate-y-5 pointer-events-none active:scale-90">
         <i class="fa-solid fa-arrow-up"></i>
     </button>
 
-    <!-- ================= MODAL CHUNG (GIỮ NGUYÊN HOẠT ĐỘNG LOGIC) ================= -->
-    <div id="authModal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 px-4 backdrop-blur-sm">
-        <div class="bg-white w-full max-w-md rounded-3xl shadow-2xl p-8 relative transform scale-95 transition-transform duration-300" id="modalContent">
+    <!-- ================= MODAL CHUNG (GIỮ NGUYÊN HOẠT ĐỘNG LOGIC & THAY ÁO DARK MODE) ================= -->
+    <div id="authModal" class="fixed inset-0 bg-black/80 z-50 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 px-4 backdrop-blur-md">
+        <div class="bg-[#0f1322] border border-slate-800 w-full max-w-md rounded-3xl shadow-2xl p-8 relative transform scale-95 transition-transform duration-300 text-gray-200" id="modalContent">
             
             <!-- Nút Đóng Modal -->
-            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl cursor-pointer">
+            <button onclick="closeModal()" class="absolute top-5 right-5 text-gray-500 hover:text-white text-xl cursor-pointer p-1.5 hover:bg-slate-800/80 rounded-xl transition-all">
                 <i class="fa-solid fa-xmark"></i>
             </button>
 
             <!-- 1. GIAO DIỆN ĐĂNG NHẬP / ĐĂNG KÝ -->
             <div id="authFormArea">
                 <div class="text-center mb-8">
-                    <h3 id="modalTitle" class="text-2xl font-bold text-gray-900">Đăng Nhập</h3>
-                    <p id="modalSub" class="text-sm text-gray-500 mt-1 font-medium">Chào mừng bạn trở lại với Hồng Hải MMO</p>
+                    <h3 id="modalTitle" class="text-2xl font-bold text-white">Đăng Nhập</h3>
+                    <p id="modalSub" class="text-sm text-gray-400 mt-1.5 font-medium">Chào mừng bạn trở lại với Hồng Hải MMO</p>
                 </div>
 
                 <form onsubmit="handleSubmit(event)" class="space-y-5">
                     <div id="nameField" class="hidden">
-                        <label class="block text-sm font-medium text-gray-700 mb-1.5">Họ và Tên</label>
+                        <label class="block text-sm font-medium text-gray-300 mb-1.5">Họ và Tên</label>
                         <div class="relative">
-                            <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-gray-400"><i class="fa-solid fa-user"></i></span>
-                            <input type="text" id="inputName" placeholder="Nguyễn Văn A" class="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-red-500 focus:bg-white transition-all text-sm">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-gray-500"><i class="fa-solid fa-user"></i></span>
+                            <input type="text" id="inputName" placeholder="Nguyễn Văn A" class="w-full pl-10 pr-4 py-3.5 bg-slate-900/80 border border-slate-800 rounded-xl focus:outline-none focus:border-red-500 focus:bg-slate-900 focus:text-white transition-all text-sm">
                         </div>
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1.5">Địa chỉ Email</label>
+                        <label class="block text-sm font-medium text-gray-300 mb-1.5">Địa chỉ Email</label>
                         <div class="relative">
-                            <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-gray-400"><i class="fa-solid fa-envelope"></i></span>
-                            <input type="email" id="inputEmail" required placeholder="name@example.com" class="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-red-500 focus:bg-white transition-all text-sm">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-gray-500"><i class="fa-solid fa-envelope"></i></span>
+                            <input type="email" id="inputEmail" required placeholder="name@example.com" class="w-full pl-10 pr-4 py-3.5 bg-slate-900/80 border border-slate-800 rounded-xl focus:outline-none focus:border-red-500 focus:bg-slate-900 focus:text-white transition-all text-sm">
                         </div>
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1.5">Mật khẩu</label>
+                        <label class="block text-sm font-medium text-gray-300 mb-1.5">Mật khẩu</label>
                         <div class="relative">
-                            <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-gray-400"><i class="fa-solid fa-lock"></i></span>
-                            <input type="password" id="inputPassword" required placeholder="••••••••" class="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-red-500 focus:bg-white transition-all text-sm">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-gray-500"><i class="fa-solid fa-lock"></i></span>
+                            <input type="password" id="inputPassword" required placeholder="••••••••" class="w-full pl-10 pr-4 py-3.5 bg-slate-900/80 border border-slate-800 rounded-xl focus:outline-none focus:border-red-500 focus:bg-slate-900 focus:text-white transition-all text-sm">
                         </div>
                     </div>
 
-                    <button type="submit" id="submitBtn" class="w-full bg-red-600 hover:bg-red-700 text-white py-3.5 rounded-xl font-bold shadow-md hover:shadow-lg transition-all text-sm tracking-wide mt-2 cursor-pointer">
+                    <button type="submit" id="submitBtn" class="w-full bg-red-600 hover:bg-red-700 active:scale-98 text-white py-3.5 rounded-xl font-bold shadow-lg shadow-red-950/20 transition-all text-sm tracking-wide mt-2 cursor-pointer">
                         Đăng Nhập
                     </button>
                 </form>
 
-                <div class="mt-6 text-center text-sm text-gray-500 border-t border-gray-100 pt-5">
+                <div class="mt-6 text-center text-sm text-gray-400 border-t border-slate-900 pt-5">
                     <span id="switchText">Chưa có tài khoản?</span>
-                    <button onclick="toggleMode()" id="switchBtn" class="text-red-600 font-semibold hover:underline ml-1 cursor-pointer">Tạo tài khoản</button>
+                    <button onclick="toggleMode()" id="switchBtn" class="text-red-500 font-semibold hover:underline ml-1 cursor-pointer">Tạo tài khoản</button>
                 </div>
             </div>
 
@@ -342,29 +359,29 @@
                 <!-- BƯỚC 1: NHẬP SỐ TIỀN -->
                 <div id="depositStep1">
                     <div class="text-center mb-6">
-                        <h3 class="text-2xl font-bold text-gray-900 flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-wallet text-red-600"></i> Nạp Tiền Tài Khoản
+                        <h3 class="text-2xl font-bold text-white flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-wallet text-red-500"></i> Nạp Tiền Tài Khoản
                         </h3>
-                        <p class="text-xs text-gray-500 mt-1">Vui lòng chọn hoặc nhập số tiền bạn muốn nạp</p>
+                        <p class="text-xs text-gray-400 mt-1">Vui lòng chọn hoặc nhập số tiền bạn muốn nạp</p>
                     </div>
 
                     <div class="space-y-6">
                         <div>
-                            <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Nhập số tiền nạp (VNĐ)</label>
-                            <input type="number" id="depositAmountInput" placeholder="Ví dụ: 100000" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-red-500 focus:bg-white text-base font-bold text-gray-900 transition-all">
+                            <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Nhập số tiền nạp (VNĐ)</label>
+                            <input type="number" id="depositAmountInput" placeholder="Ví dụ: 100000" class="w-full px-4 py-3.5 bg-slate-900/80 border border-slate-800 rounded-xl focus:outline-none focus:border-red-500 focus:bg-slate-900 focus:text-white text-base font-bold transition-all">
                         </div>
 
                         <div>
-                            <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Chọn nhanh mệnh giá</label>
+                            <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Chọn nhanh mệnh giá</label>
                             <div class="grid grid-cols-2 gap-2">
-                                <button onclick="setQuickAmount(50000)" class="py-2.5 bg-gray-50 hover:bg-red-50 hover:text-red-600 border border-gray-200 hover:border-red-200 rounded-xl font-bold text-sm text-gray-700 transition-all cursor-pointer">50.000đ</button>
-                                <button onclick="setQuickAmount(100000)" class="py-2.5 bg-gray-50 hover:bg-red-50 hover:text-red-600 border border-gray-200 hover:border-red-200 rounded-xl font-bold text-sm text-gray-700 transition-all cursor-pointer">100.000đ</button>
-                                <button onclick="setQuickAmount(200000)" class="py-2.5 bg-gray-50 hover:bg-red-50 hover:text-red-600 border border-gray-200 hover:border-red-200 rounded-xl font-bold text-sm text-gray-700 transition-all cursor-pointer">200.000đ</button>
-                                <button onclick="setQuickAmount(500000)" class="py-2.5 bg-gray-50 hover:bg-red-50 hover:text-red-600 border border-gray-200 hover:border-red-200 rounded-xl font-bold text-sm text-gray-700 transition-all cursor-pointer">500.000đ</button>
+                                <button onclick="setQuickAmount(50000)" class="py-2.5 bg-slate-900 hover:bg-red-950/50 hover:text-red-400 border border-slate-800 hover:border-red-900/50 rounded-xl font-bold text-sm text-gray-300 transition-all cursor-pointer active:scale-95">50.000đ</button>
+                                <button onclick="setQuickAmount(100000)" class="py-2.5 bg-slate-900 hover:bg-red-950/50 hover:text-red-400 border border-slate-800 hover:border-red-900/50 rounded-xl font-bold text-sm text-gray-300 transition-all cursor-pointer active:scale-95">100.000đ</button>
+                                <button onclick="setQuickAmount(200000)" class="py-2.5 bg-slate-900 hover:bg-red-950/50 hover:text-red-400 border border-slate-800 hover:border-red-900/50 rounded-xl font-bold text-sm text-gray-300 transition-all cursor-pointer active:scale-95">200.000đ</button>
+                                <button onclick="setQuickAmount(500000)" class="py-2.5 bg-slate-900 hover:bg-red-950/50 hover:text-red-400 border border-slate-800 hover:border-red-900/50 rounded-xl font-bold text-sm text-gray-300 transition-all cursor-pointer active:scale-95">500.000đ</button>
                             </div>
                         </div>
 
-                        <button onclick="goToDepositStep2()" class="w-full bg-red-600 hover:bg-red-700 text-white py-3.5 rounded-xl font-bold shadow-md transition-all text-sm cursor-pointer">
+                        <button onclick="goToDepositStep2()" class="w-full bg-red-600 hover:bg-red-700 text-white py-3.5 rounded-xl font-bold shadow-lg transition-all text-sm cursor-pointer active:scale-98">
                             Tiếp tục thanh toán <i class="fa-solid fa-arrow-right ml-1"></i>
                         </button>
                     </div>
@@ -373,37 +390,37 @@
                 <!-- BƯỚC 2: QUÉT MÃ QR & HOÀN TẤT -->
                 <div id="depositStep2" class="hidden">
                     <div class="text-center mb-4">
-                        <button onclick="goBackToStep1()" class="absolute left-6 top-5 text-gray-400 hover:text-red-600 text-sm font-semibold flex items-center gap-1 cursor-pointer">
+                        <button onclick="goBackToStep1()" class="absolute left-6 top-5 text-gray-400 hover:text-red-500 text-sm font-semibold flex items-center gap-1 cursor-pointer">
                             <i class="fa-solid fa-arrow-left"></i> Trở lại
                         </button>
-                        <h3 class="text-xl font-bold text-gray-900">Quét Mã Thanh Toán</h3>
-                        <p class="text-xs text-gray-500 mt-1">Chuyển đúng số tiền để hệ thống tự xử lý</p>
+                        <h3 class="text-xl font-bold text-white">Quét Mã Thanh Toán</h3>
+                        <p class="text-xs text-gray-400 mt-1">Chuyển đúng số tiền để hệ thống tự xử lý</p>
                     </div>
 
                     <div class="flex flex-col items-center">
-                        <div class="border-4 border-red-100 rounded-2xl p-2 bg-white shadow-sm max-w-[200px] relative">
+                        <div class="border-4 border-red-950 rounded-2xl p-2 bg-white shadow-sm max-w-[200px] relative">
                             <img id="qrImage" src="https://placehold.co/300x400/fff/991b1b?text=DANG+HONG+HAI+QR" alt="Mã QR Đặng Hồng Hải" class="w-full rounded-lg object-contain">
                         </div>
                         
-                        <div class="w-full mt-5 bg-red-50/50 border border-red-100 rounded-xl p-4 text-xs space-y-2">
+                        <div class="w-full mt-5 bg-slate-900/60 border border-slate-800 rounded-xl p-4 text-xs space-y-2.5">
                             <div class="flex justify-between">
-                                <span class="text-gray-500">Chủ tài khoản:</span>
-                                <span class="font-bold text-gray-900">DANG HONG HAI</span>
+                                <span class="text-gray-400">Chủ tài khoản:</span>
+                                <span class="font-bold text-white">DANG HONG HAI</span>
                             </div>
                             <div class="flex justify-between items-center">
-                                <span class="text-gray-500">Số tiền thanh toán:</span>
-                                <span id="depositValueText" class="font-extrabold text-red-600 text-sm">0đ</span>
+                                <span class="text-gray-400">Số tiền thanh toán:</span>
+                                <span id="depositValueText" class="font-extrabold text-red-500 text-sm">0đ</span>
                             </div>
                             <div class="flex justify-between items-center">
-                                <span class="text-gray-500">Nội dung chuyển khoản:</span>
-                                <div class="flex items-center gap-1">
-                                    <span id="noidungCK" class="font-bold text-red-600 tracking-wider">HONGHAI 12589</span>
-                                    <button onclick="copyContent()" class="text-[10px] text-gray-500 px-1 py-0.5 border border-gray-200 rounded bg-white cursor-pointer active:scale-95 transition-all">Copy</button>
+                                <span class="text-gray-400">Cú pháp nạp:</span>
+                                <div class="flex items-center gap-1.5">
+                                    <span id="noidungCK" class="font-bold text-red-500 tracking-wider">HONGHAI 12589</span>
+                                    <button onclick="copyContent()" class="text-[10px] text-gray-300 px-2 py-0.5 border border-slate-700 rounded bg-slate-800 hover:bg-slate-700 cursor-pointer active:scale-95 transition-all">Copy</button>
                                 </div>
                             </div>
                         </div>
 
-                        <button onclick="submitDepositOrder()" class="w-full bg-green-600 hover:bg-green-700 text-white py-3.5 rounded-xl font-bold shadow-md hover:shadow-lg transition-all text-sm mt-5 cursor-pointer">
+                        <button onclick="submitDepositOrder()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3.5 rounded-xl font-bold shadow-lg transition-all text-sm mt-5 cursor-pointer active:scale-98">
                             <i class="fa-solid fa-check"></i> Tôi đã chuyển khoản (Hoàn tất)
                         </button>
                     </div>
@@ -413,15 +430,15 @@
             <!-- 3. GIAO DIỆN LỊCH SỬ NẠP TIỀN -->
             <div id="historyArea" class="hidden">
                 <div class="text-center mb-6">
-                    <h3 class="text-2xl font-bold text-gray-900 flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-clock-rotate-left text-red-600"></i> Lịch Sử Giao Dịch
+                    <h3 class="text-2xl font-bold text-white flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-clock-rotate-left text-red-500"></i> Lịch Sử Giao Dịch
                     </h3>
-                    <p class="text-xs text-gray-500 mt-1">Danh sách yêu cầu nạp tiền của bạn</p>
+                    <p class="text-xs text-gray-400 mt-1">Danh sách yêu cầu nạp tiền của bạn</p>
                 </div>
 
-                <div class="overflow-x-auto max-h-60 overflow-y-auto border border-gray-100 rounded-xl">
-                    <table class="min-w-full text-xs text-left text-gray-500">
-                        <thead class="text-xxs uppercase bg-gray-50 text-gray-700 sticky top-0">
+                <div class="overflow-x-auto max-h-60 overflow-y-auto border border-slate-800 rounded-xl">
+                    <table class="min-w-full text-xs text-left text-gray-300">
+                        <thead class="text-xxs uppercase bg-slate-900 text-gray-400 sticky top-0">
                             <tr>
                                 <th class="px-4 py-3">Thời gian</th>
                                 <th class="px-4 py-3 text-right">Số tiền</th>
@@ -431,7 +448,7 @@
                         <tbody id="historyTableBody"></tbody>
                     </table>
                 </div>
-                <div id="noHistoryText" class="text-center text-gray-400 text-xs py-8 hidden">
+                <div id="noHistoryText" class="text-center text-gray-500 text-xs py-8 hidden">
                     Bạn chưa có giao dịch nào.
                 </div>
             </div>
@@ -439,40 +456,40 @@
             <!-- 4. GIAO DIỆN CHỌN SỐ LƯỢNG MUA SẢN PHẨM -->
             <div id="buyProductArea" class="hidden">
                 <div class="text-center mb-6">
-                    <h3 class="text-2xl font-bold text-gray-900 flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-cart-shopping text-red-600"></i> Mua Sản Phẩm
+                    <h3 class="text-2xl font-bold text-white flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-cart-shopping text-red-500"></i> Mua Sản Phẩm
                     </h3>
-                    <p class="text-xs text-gray-500 mt-1">Vui lòng chọn số lượng bạn muốn thanh toán</p>
+                    <p class="text-xs text-gray-400 mt-1">Vui lòng chọn số lượng bạn muốn thanh toán</p>
                 </div>
 
                 <div class="space-y-6">
-                    <div class="bg-gray-50 p-4 rounded-xl border border-gray-100">
-                        <h4 id="buyProductName" class="font-bold text-gray-950 text-base">Tên sản phẩm</h4>
-                        <div class="flex justify-between items-center mt-2 text-xs text-gray-500">
+                    <div class="bg-slate-900/50 p-4 rounded-xl border border-slate-800">
+                        <h4 id="buyProductName" class="font-bold text-white text-base">Tên sản phẩm</h4>
+                        <div class="flex justify-between items-center mt-2 text-xs text-gray-400">
                             <span>Đơn giá:</span>
-                            <span id="buyProductPriceText" class="font-bold text-red-600">0đ</span>
+                            <span id="buyProductPriceText" class="font-bold text-red-500">0đ</span>
                         </div>
                     </div>
 
                     <div>
-                        <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2 text-center">Số lượng mua</label>
+                        <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 text-center">Số lượng mua</label>
                         <div class="flex items-center justify-center space-x-4">
-                            <button onclick="changeBuyQuantity(-1)" class="w-11 h-11 bg-gray-100 hover:bg-gray-200 rounded-xl font-bold text-lg text-gray-700 flex items-center justify-center cursor-pointer active:scale-95 transition-all">
+                            <button onclick="changeBuyQuantity(-1)" class="w-11 h-11 bg-slate-900 hover:bg-slate-800 border border-slate-800 rounded-xl font-bold text-lg text-white flex items-center justify-center cursor-pointer active:scale-95 transition-all">
                                 <i class="fa-solid fa-minus"></i>
                             </button>
-                            <input type="number" id="buyQuantityInput" value="1" min="1" class="w-20 h-11 text-center bg-gray-50 border border-gray-200 rounded-xl font-extrabold text-lg text-gray-950 focus:outline-none focus:border-red-500 focus:bg-white" oninput="calculateTotalBuy()">
-                            <button onclick="changeBuyQuantity(1)" class="w-11 h-11 bg-gray-100 hover:bg-gray-200 rounded-xl font-bold text-lg text-gray-700 flex items-center justify-center cursor-pointer active:scale-95 transition-all">
+                            <input type="number" id="buyQuantityInput" value="1" min="1" class="w-20 h-11 text-center bg-slate-900 border border-slate-800 rounded-xl font-extrabold text-lg text-white focus:outline-none focus:border-red-500" oninput="calculateTotalBuy()">
+                            <button onclick="changeBuyQuantity(1)" class="w-11 h-11 bg-slate-900 hover:bg-slate-800 border border-slate-800 rounded-xl font-bold text-lg text-white flex items-center justify-center cursor-pointer active:scale-95 transition-all">
                                 <i class="fa-solid fa-plus"></i>
                             </button>
                         </div>
                     </div>
 
-                    <div class="border-t border-gray-100 pt-4 flex justify-between items-center">
-                        <span class="text-sm font-semibold text-gray-600">Tổng thanh toán:</span>
-                        <span id="buyTotalText" class="text-2xl font-extrabold text-red-600">0đ</span>
+                    <div class="border-t border-slate-800 pt-4 flex justify-between items-center">
+                        <span class="text-sm font-semibold text-gray-400">Tổng thanh toán:</span>
+                        <span id="buyTotalText" class="text-2xl font-extrabold text-red-500">0đ</span>
                     </div>
 
-                    <button onclick="executePurchase()" class="w-full bg-red-600 hover:bg-red-700 text-white py-4 rounded-xl font-bold shadow-lg transition-all text-sm cursor-pointer flex items-center justify-center gap-2">
+                    <button onclick="executePurchase()" class="w-full bg-red-600 hover:bg-red-700 text-white py-4 rounded-xl font-bold shadow-lg transition-all text-sm cursor-pointer flex items-center justify-center gap-2 active:scale-98">
                         <i class="fa-solid fa-circle-check"></i> Xác Nhận Thanh Toán
                     </button>
                 </div>
@@ -481,7 +498,7 @@
         </div>
     </div>
 
-    <!-- SCRIPT ĐIỀU KHIỂN LOGIC -->
+    <!-- SCRIPT ĐIỀU KHIỂN LOGIC (GIỮ NGUYÊN 100%) -->
     <script>
         let currentMode = 'login'; 
         let currentUser = null; 
@@ -526,13 +543,13 @@
             const cards = document.querySelectorAll('.product-card');
             const tabs = ['all', 'facebook', 'gmail', 'tool'];
             
-            // Cập nhật giao diện nút Tab tích cực
+            // Cập nhật giao diện nút Tab tích cực (Nâng cấp giao diện tương thích Dark Theme)
             tabs.forEach(t => {
                 const btn = document.getElementById(`tab-${t}`);
                 if (t === category) {
-                    btn.className = "px-5 py-2.5 bg-gray-900 text-white text-xs font-bold rounded-xl cursor-pointer";
+                    btn.className = "px-5 py-2.5 bg-red-600 text-white text-xs font-bold rounded-xl cursor-pointer shadow-md shadow-red-950/20";
                 } else {
-                    btn.className = "px-5 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-bold rounded-xl cursor-pointer";
+                    btn.className = "px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-gray-300 text-xs font-bold rounded-xl cursor-pointer";
                 }
             });
 
@@ -787,6 +804,7 @@
             }
         }
 
+        // Tùy chỉnh Toast Notification cho giao diện mới
         function showCustomToast(title, subtitle, type) {
             const toast = document.getElementById('toastNotification');
             const iconBg = document.getElementById('toastIconBg');
@@ -794,19 +812,19 @@
             const toastTitle = document.getElementById('toastTitle');
             const toastSub = document.getElementById('toastSub');
 
-            toast.className = "fixed top-5 right-5 z-50 transform translate-x-full opacity-0 transition-all duration-500 flex items-center bg-gray-950 text-white px-5 py-3.5 rounded-2xl shadow-2xl border max-w-sm border-gray-800/80";
+            toast.className = "fixed top-5 right-5 z-50 transform translate-x-full opacity-0 transition-all duration-500 flex items-center px-5 py-3.5 rounded-2xl shadow-2xl border bg-slate-900/95 backdrop-blur-md border-slate-800 max-w-sm";
             
             if (type === 'success') {
-                iconBg.className = "bg-green-500/20 text-green-400 p-2 rounded-xl mr-3 flex items-center justify-center text-sm";
+                iconBg.className = "bg-emerald-500/20 text-emerald-400 p-2.5 rounded-xl mr-3 flex items-center justify-center text-sm";
                 icon.className = "fa-solid fa-circle-check";
             } else if (type === 'error') {
-                iconBg.className = "bg-red-500/20 text-red-400 p-2 rounded-xl mr-3 flex items-center justify-center text-sm";
+                iconBg.className = "bg-red-500/20 text-red-400 p-2.5 rounded-xl mr-3 flex items-center justify-center text-sm";
                 icon.className = "fa-solid fa-triangle-exclamation";
             } else if (type === 'warning') {
-                iconBg.className = "bg-amber-500/20 text-amber-400 p-2 rounded-xl mr-3 flex items-center justify-center text-sm";
+                iconBg.className = "bg-amber-500/20 text-amber-400 p-2.5 rounded-xl mr-3 flex items-center justify-center text-sm";
                 icon.className = "fa-solid fa-circle-exclamation";
             } else { 
-                iconBg.className = "bg-blue-500/20 text-blue-400 p-2 rounded-xl mr-3 flex items-center justify-center text-sm";
+                iconBg.className = "bg-blue-500/20 text-blue-400 p-2.5 rounded-xl mr-3 flex items-center justify-center text-sm";
                 icon.className = "fa-solid fa-hourglass-half animate-spin";
             }
 
@@ -837,23 +855,23 @@
             noHistoryText.classList.add('hidden');
             history.forEach(tx => {
                 const tr = document.createElement('tr');
-                tr.className = "border-b border-gray-50 hover:bg-gray-50/50 text-xs";
+                tr.className = "border-b border-slate-900 hover:bg-slate-800/30 text-xs text-gray-300";
                 
-                let badgeClass = "bg-amber-100 text-amber-800";
+                let badgeClass = "bg-amber-500/20 text-amber-400 border border-amber-500/10";
                 let textSign = "+";
-                let textColor = "text-green-600";
+                let textColor = "text-emerald-500";
 
                 if (tx.amount < 0) {
                     textSign = "";
-                    textColor = "text-red-600";
+                    textColor = "text-red-500";
                 }
 
                 if(tx.status === 'Thành công') {
-                    badgeClass = "bg-green-100 text-green-800";
+                    badgeClass = "bg-emerald-500/20 text-emerald-400 border border-emerald-500/10";
                 }
 
                 tr.innerHTML = `
-                    <td class="px-4 py-3 text-gray-500">${tx.time}</td>
+                    <td class="px-4 py-3 text-gray-400">${tx.time}</td>
                     <td class="px-4 py-3 text-right font-bold ${textColor}">${textSign}${Number(tx.amount).toLocaleString('vi-VN')}đ</td>
                     <td class="px-4 py-3 text-center">
                         <span class="${badgeClass} text-[10px] px-2 py-0.5 rounded-full font-bold">${tx.status}</span>
