@@ -1354,8 +1354,14 @@
     h.appendChild(s);
 })(window, document);
 </script>
-<audio id="bgMusic" autoplay loop>
+    <audio id="bgMusic" loop>
     <source src="music.mp3" type="audio/mpeg">
 </audio>
+
+<script>
+document.addEventListener("click", function () {
+    document.getElementById("bgMusic").play();
+}, { once: true });
+</script>
 </body>
 </html>
