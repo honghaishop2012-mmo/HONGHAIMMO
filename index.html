@@ -1364,4 +1364,118 @@ document.addEventListener("click", function () {
 }, { once: true });
 </script>
 </body>
+    <!-- Thông báo hiện đại -->
+<div id="popup">
+    <div class="popup-box">
+        <h2>📣 Thông Báo</h2>
+
+        <p>
+            Xin chào quý khách!<br><br>
+
+            Admin <b>Hồng Hải</b> đã xây dựng website này vào
+            <b>15/07/2026</b> với mục đích hỗ trợ cộng đồng.
+
+            Shop chuyên nhận:
+            <br><br>
+
+            ✅ Mở khóa Facebook bị khóa.<br>
+            ✅ Khôi phục tài khoản TikTok bị cấm.<br>
+            ✅ Mở khóa tài khoản bị vô hiệu hóa.<br>
+            ✅ Hỗ trợ các dịch vụ Facebook, TikTok, Google và nhiều dịch vụ trực tuyến khác.<br>
+            ✅ Nhận hầu hết các dịch vụ theo yêu cầu.
+
+            <br><br>
+
+            Với hơn <b>4 năm kinh nghiệm</b>, Admin Hồng Hải luôn đặt uy tín và chất lượng lên hàng đầu, hỗ trợ khách hàng nhanh chóng và tận tâm.
+
+            <br><br>
+
+            ❤️ Xin cảm ơn quý khách đã tin tưởng và sử dụng dịch vụ!
+        </p>
+
+        <button onclick="closePopup()">✅ Đóng</button>
+    </div>
+</div>
+
+<style>
+#popup{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.65);
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:999999;
+backdrop-filter:blur(8px);
+animation:fadeIn .3s;
+}
+
+.popup-box{
+width:90%;
+max-width:500px;
+background:#fff;
+border-radius:20px;
+padding:25px;
+text-align:center;
+box-shadow:0 20px 60px rgba(0,0,0,.3);
+animation:zoom .35s;
+}
+
+.popup-box h2{
+font-size:28px;
+margin-bottom:15px;
+color:#0d6efd;
+}
+
+.popup-box p{
+font-size:16px;
+line-height:1.8;
+color:#333;
+text-align:left;
+}
+
+.popup-box button{
+margin-top:20px;
+width:100%;
+padding:15px;
+border:none;
+border-radius:12px;
+background:#0d6efd;
+color:#fff;
+font-size:18px;
+font-weight:bold;
+cursor:pointer;
+transition:.3s;
+}
+
+.popup-box button:hover{
+transform:scale(1.03);
+background:#0056d6;
+}
+
+@keyframes zoom{
+from{
+transform:scale(.7);
+opacity:0;
+}
+to{
+transform:scale(1);
+opacity:1;
+}
+}
+
+@keyframes fadeIn{
+from{opacity:0;}
+to{opacity:1;}
+}
+</style>
+
+<script>
+function closePopup(){
+document.getElementById("popup").style.display="none";
+}
+</script>
 </html>
