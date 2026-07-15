@@ -54,7 +54,7 @@
 </head>
 <body class="bg-[#0b0f19] text-gray-100 font-sans antialiased scroll-smooth selection:bg-red-500 selection:text-white">
 
-    <!-- TOAST NOTIFICATION (Nâng cấp giao diện mờ kính - Glassmorphism) -->
+    <!-- TOAST NOTIFICATION -->
     <div id="toastNotification" class="fixed top-5 right-5 z-50 transform translate-x-full opacity-0 transition-all duration-500 flex items-center px-5 py-4 rounded-2xl shadow-2xl border bg-slate-900/90 backdrop-blur-md border-slate-800/80 max-w-sm">
         <div id="toastIconBg" class="p-2.5 rounded-xl mr-3 flex items-center justify-center text-base">
             <i id="toastIcon" class="fa-solid"></i>
@@ -71,14 +71,12 @@
             
             <!-- Tên Shop cực kỳ hiện đại và sang trọng -->
             <a href="#" class="flex items-center gap-3 group shrink-0">
-                <!-- Logo biểu tượng chuyển màu thời thượng -->
                 <div class="relative">
                     <div class="absolute inset-0 bg-gradient-to-tr from-red-600 to-orange-500 rounded-2xl blur-md opacity-50 group-hover:opacity-80 transition-opacity"></div>
                     <div class="relative bg-gradient-to-tr from-red-600 to-orange-500 text-white w-11 h-11 rounded-2xl font-black flex items-center justify-center shadow-lg tracking-wider text-lg">
                         HH
                     </div>
                 </div>
-                <!-- Chữ tên shop Gradient ánh bạc / đỏ chuyển màu -->
                 <div class="flex flex-col leading-tight">
                     <span class="font-black text-lg sm:text-xl tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-red-500 to-orange-500 shine-effect">
                         HỒNG HẢI <span class="text-red-500">MMO</span>
@@ -95,7 +93,7 @@
                 <a href="#dich-vu" class="hover:text-red-500 transition-colors">Dịch Vụ</a>
             </nav>
 
-            <!-- Khu vực thành viên (Hiện đầy đủ Lịch Sử & Nạp Tiền) -->
+            <!-- Khu vực thành viên -->
             <div id="navAuthArea" class="flex items-center gap-2 sm:gap-3 shrink-0">
                 <!-- Chưa đăng nhập -->
                 <div id="guestMenu" class="flex items-center gap-2">
@@ -103,33 +101,38 @@
                     <button onclick="openModal('register')" class="bg-red-600 hover:bg-red-700 active:scale-95 text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-lg shadow-red-950/20 cursor-pointer">Đăng Ký</button>
                 </div>
 
-                <!-- Đã đăng nhập -->
-                <div id="userMenu" class="hidden flex items-center gap-2 sm:gap-3">
-                    <div class="text-right leading-tight max-w-[95px] sm:max-w-[150px]">
+                <!-- Đã đăng nhập (Tối ưu giao diện nút theo yêu cầu của khách hàng) -->
+                <div id="userMenu" class="hidden flex items-center gap-3">
+                    <div class="text-right leading-tight max-w-[110px] sm:max-w-[150px]">
                         <p class="text-[10px] sm:text-xs text-gray-400 font-bold truncate">Chào, <span id="userNameDisplay" class="text-white font-extrabold">Khách</span></p>
                         <p class="text-xs sm:text-sm font-black text-red-500 truncate"><span id="userBalanceDisplay">0</span>đ</p>
                     </div>
                     
-                    <!-- Nút Nạp Tiền -->
-                    <button onclick="openModal('deposit')" class="bg-emerald-950/40 hover:bg-emerald-600 active:scale-95 text-emerald-400 hover:text-white px-2.5 py-2 sm:px-3.5 sm:py-2 rounded-xl text-[10px] sm:text-xs font-bold border border-emerald-900/50 hover:border-emerald-600 flex items-center gap-1 shrink-0 cursor-pointer">
-                        <i class="fa-solid fa-wallet"></i> <span>Nạp tiền</span>
-                    </button>
-                    
-                    <!-- Nút Lịch Sử -->
-                    <button onclick="openModal('history')" class="bg-slate-900 hover:bg-slate-800 active:scale-95 text-gray-300 hover:text-white px-2.5 py-2 sm:px-3.5 sm:py-2 rounded-xl text-[10px] sm:text-xs font-bold border border-slate-800 flex items-center gap-1 shrink-0 cursor-pointer">
-                        <i class="fa-solid fa-clock-rotate-left"></i> <span>Lịch sử</span>
-                    </button>
-
-                    <!-- Đăng Xuất -->
-                    <button onclick="logout()" class="text-gray-500 hover:text-red-500 p-1.5 transition-colors cursor-pointer shrink-0 active:scale-90" title="Đăng xuất">
-                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                    </button>
+                    <!-- Khối chứa các nút hành động (Nạp tiền trên, Thoát & Lịch sử dưới) -->
+                    <div class="flex flex-col gap-1.5 shrink-0">
+                        <!-- Hàng 1: Nút Nạp Tiền -->
+                        <button onclick="openModal('deposit')" class="bg-emerald-950/50 hover:bg-emerald-600 active:scale-95 text-emerald-400 hover:text-white px-3 py-1.5 rounded-lg text-[10px] sm:text-xs font-bold border border-emerald-900/40 hover:border-emerald-600 flex items-center justify-center gap-1 cursor-pointer w-full">
+                            <i class="fa-solid fa-wallet text-[11px]"></i> <span>Nạp tiền</span>
+                        </button>
+                        
+                        <!-- Hàng 2: Thoát (bên trái) và Lịch Sử (bên phải, nằm dưới Nút Nạp Tiền) -->
+                        <div class="flex items-center gap-1.5">
+                            <!-- Nút Thoát (Đăng xuất) -->
+                            <button onclick="logout()" class="bg-slate-900/80 hover:bg-red-900/40 text-gray-400 hover:text-red-400 px-2 py-1.5 rounded-lg text-[10px] sm:text-xs font-bold border border-slate-800 hover:border-red-900/30 flex items-center justify-center gap-1 cursor-pointer active:scale-95" title="Đăng xuất">
+                                <i class="fa-solid fa-arrow-right-from-bracket"></i> <span>Thoát</span>
+                            </button>
+                            <!-- Nút Lịch Sử -->
+                            <button onclick="openModal('history')" class="bg-slate-900/80 hover:bg-slate-800 active:scale-95 text-gray-300 hover:text-white px-2.5 py-1.5 rounded-lg text-[10px] sm:text-xs font-bold border border-slate-800 flex items-center justify-center gap-1 cursor-pointer">
+                                <i class="fa-solid fa-clock-rotate-left text-[11px]"></i> <span>Lịch sử</span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- BANNER KHUYẾN MÃI CHẠY CHỮ CHUYỂN ĐỘNG (NEWS TICKER) -->
+    <!-- BANNER KHUYẾN MÃI CHẠY CHỮ CHUYỂN ĐỘNG -->
     <div class="bg-gradient-to-r from-red-600 to-orange-600 text-white py-2 px-4 overflow-hidden relative z-10 text-xs font-bold shadow-md shadow-red-950/10">
         <div class="max-w-7xl mx-auto flex items-center gap-3">
             <span class="bg-white/20 px-2 py-0.5 rounded text-[10px] tracking-wide shrink-0">TIN TỨC</span>
@@ -158,7 +161,7 @@
         <div class="absolute -bottom-40 -left-40 w-96 h-96 bg-orange-600 rounded-full blur-3xl opacity-10"></div>
     </section>
 
-    <!-- SECTION THỐNG KÊ UY TÍN (STATS SECTION) -->
+    <!-- SECTION THỐNG KÊ UY TÍN -->
     <section id="thong-ke" class="py-12 bg-slate-950/50 border-b border-slate-900">
         <div class="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             <div class="p-4">
@@ -180,7 +183,7 @@
         </div>
     </section>
 
-    <!-- DANH SÁCH SẢN PHẨM / CỬA HÀNG (CÓ TABS LỌC DANH MỤC) -->
+    <!-- DANH SÁCH SẢN PHẨM / CỬA HÀNG -->
     <section id="cua-hang" class="py-20 max-w-7xl mx-auto px-4">
         <div class="text-center max-w-3xl mx-auto mb-12">
             <h2 class="text-3xl font-black text-white tracking-tight">Cửa Hàng Tự Động</h2>
@@ -192,10 +195,43 @@
                 <button onclick="filterCategory('facebook')" id="tab-facebook" class="px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-gray-300 text-xs font-bold rounded-xl cursor-pointer">Facebook</button>
                 <button onclick="filterCategory('gmail')" id="tab-gmail" class="px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-gray-300 text-xs font-bold rounded-xl cursor-pointer">Gmail ngoại</button>
                 <button onclick="filterCategory('tool')" id="tab-tool" class="px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-gray-300 text-xs font-bold rounded-xl cursor-pointer">Tool & Software</button>
+                <button onclick="filterCategory('unlock')" id="tab-unlock" class="px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-gray-300 text-xs font-bold rounded-xl cursor-pointer">Mở Khóa Account</button>
             </div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Sản phẩm mới 1: Mở khóa Facebook -->
+            <div class="product-card bg-slate-950/40 rounded-2xl border border-slate-900 overflow-hidden hover:border-red-500/30 hover:shadow-2xl hover:shadow-red-950/10 hover:-translate-y-1 duration-300" data-category="unlock">
+                <div class="p-6">
+                    <span class="bg-red-950/50 text-red-400 text-xs font-bold px-2.5 py-1 rounded-lg border border-red-900/30">Dịch Vụ Mở Khóa</span>
+                    <h3 class="text-lg font-extrabold text-white mt-4">Mở Khóa Tài Khoản Facebook</h3>
+                    <p class="text-xs text-gray-400 mt-2">Hỗ trợ các dạng khóa két sắt 956, 282, xác minh danh tính, trình tạo mã. Bảo hành an toàn 100%.</p>
+                    <div class="flex items-center justify-between mt-6 border-t border-slate-900/80 pt-4">
+                        <div>
+                            <span class="text-xs text-gray-500 line-through">150.000đ</span>
+                            <p class="text-xl font-black text-red-500">70,000đ</p>
+                        </div>
+                        <button onclick="openUnlockModal('fb')" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2.5 px-4 rounded-xl text-sm cursor-pointer active:scale-95 shadow-md shadow-red-950/20">Mua Ngay</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sản phẩm mới 2: Mở khóa Tiktok -->
+            <div class="product-card bg-slate-950/40 rounded-2xl border border-slate-900 overflow-hidden hover:border-red-500/30 hover:shadow-2xl hover:shadow-red-950/10 hover:-translate-y-1 duration-300" data-category="unlock">
+                <div class="p-6">
+                    <span class="bg-orange-950/50 text-orange-400 text-xs font-bold px-2.5 py-1 rounded-lg border border-orange-900/30">Dịch Vụ Mở Khóa</span>
+                    <h3 class="text-lg font-extrabold text-white mt-4">Mở Khóa Tài Khoản TikTok</h3>
+                    <p class="text-xs text-gray-400 mt-2">Hỗ trợ mở khóa tài khoản TikTok bị đình chỉ, vi phạm hướng dẫn cộng đồng, hạn chế tính năng.</p>
+                    <div class="flex items-center justify-between mt-6 border-t border-slate-900/80 pt-4">
+                        <div>
+                            <span class="text-xs text-gray-500 line-through">200.000đ</span>
+                            <p class="text-xl font-black text-red-500">100,000đ</p>
+                        </div>
+                        <button onclick="openUnlockModal('tiktok')" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2.5 px-4 rounded-xl text-sm cursor-pointer active:scale-95 shadow-md shadow-red-950/20">Mua Ngay</button>
+                    </div>
+                </div>
+            </div>
+
             <!-- Sản phẩm 1 (Facebook) -->
             <div class="product-card bg-slate-950/40 rounded-2xl border border-slate-900 overflow-hidden hover:border-red-500/30 hover:shadow-2xl hover:shadow-red-950/10 hover:-translate-y-1 duration-300" data-category="facebook">
                 <div class="p-6">
@@ -297,12 +333,12 @@
         </div>
     </footer>
 
-    <!-- NÚT CUỘN LÊN ĐẦU TRANG (BACK TO TOP) -->
+    <!-- NÚT CUỘN LÊN ĐẦU TRANG -->
     <button id="backToTop" class="fixed bottom-6 right-6 z-30 bg-red-600 hover:bg-red-700 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg cursor-pointer transition-all opacity-0 translate-y-5 pointer-events-none active:scale-90">
         <i class="fa-solid fa-arrow-up"></i>
     </button>
 
-    <!-- ================= MODAL CHUNG (GIỮ NGUYÊN HOẠT ĐỘNG LOGIC & THAY ÁO DARK MODE) ================= -->
+    <!-- ================= MODAL CHUNG (TÍCH HỢP TOÀN BỘ LOGIC CŨ + MENU MỞ KHÓA MỚI) ================= -->
     <div id="authModal" class="fixed inset-0 bg-black/80 z-50 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 px-4 backdrop-blur-md">
         <div class="bg-[#0f1322] border border-slate-800 w-full max-w-md rounded-3xl shadow-2xl p-8 relative transform scale-95 transition-transform duration-300 text-gray-200" id="modalContent">
             
@@ -453,7 +489,7 @@
                 </div>
             </div>
 
-            <!-- 4. GIAO DIỆN CHỌN SỐ LƯỢNG MUA SẢN PHẨM -->
+            <!-- 4. GIAO DIỆN CHỌN SỐ LƯỢNG MUA SẢN PHẨM KHÁC -->
             <div id="buyProductArea" class="hidden">
                 <div class="text-center mb-6">
                     <h3 class="text-2xl font-bold text-white flex items-center justify-center gap-2">
@@ -495,19 +531,68 @@
                 </div>
             </div>
 
+            <!-- 5. MENU THU THẬP THÔNG TIN MỞ KHÓA (CHUYÊN BIỆT CHO FB & TIKTOK) -->
+            <div id="unlockFormArea" class="hidden">
+                <div class="text-center mb-6">
+                    <h3 id="unlockTitle" class="text-2xl font-bold text-white flex items-center justify-center gap-2">
+                        Mở Khóa Account
+                    </h3>
+                    <p class="text-xs text-gray-400 mt-1">Cung cấp thông tin để hệ thống hỗ trợ mở khóa</p>
+                </div>
+
+                <div class="space-y-4">
+                    <!-- Khu vực điền thông tin của Facebook -->
+                    <div id="fbFields" class="space-y-4 hidden">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-1.5">Tài khoản Facebook (Email/SĐT/UID)</label>
+                            <input type="text" id="fbAccount" placeholder="Nhập tài khoản đăng nhập FB" class="w-full px-4 py-3 bg-slate-900/80 border border-slate-800 rounded-xl focus:outline-none focus:border-red-500 focus:bg-slate-900 focus:text-white text-sm transition-all">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-1.5">Mật khẩu Facebook</label>
+                            <input type="password" id="fbPass" placeholder="Nhập mật khẩu FB" class="w-full px-4 py-3 bg-slate-900/80 border border-slate-800 rounded-xl focus:outline-none focus:border-red-500 focus:bg-slate-900 focus:text-white text-sm transition-all">
+                        </div>
+                    </div>
+
+                    <!-- Khu vực điền thông tin của TikTok -->
+                    <div id="tiktokFields" class="space-y-4 hidden">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-1.5">ID TikTok</label>
+                            <input type="text" id="tiktokId" placeholder="Ví dụ: @honghai.mmo" class="w-full px-4 py-3 bg-slate-900/80 border border-slate-800 rounded-xl focus:outline-none focus:border-red-500 focus:bg-slate-900 focus:text-white text-sm transition-all">
+                        </div>
+                    </div>
+
+                    <!-- Zalo dùng chung -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-1.5">Số điện thoại Zalo liên hệ</label>
+                        <input type="text" id="zaloContact" placeholder="Nhập số Zalo để admin nhắn tin" class="w-full px-4 py-3 bg-slate-900/80 border border-slate-800 rounded-xl focus:outline-none focus:border-red-500 focus:bg-slate-900 focus:text-white text-sm transition-all">
+                    </div>
+
+                    <div class="border-t border-slate-800 pt-4 flex justify-between items-center">
+                        <span class="text-sm font-semibold text-gray-400">Chi phí dịch vụ:</span>
+                        <span id="unlockPriceText" class="text-xl font-black text-red-500">0đ</span>
+                    </div>
+
+                    <button onclick="proceedToUnlockPayment()" class="w-full bg-red-600 hover:bg-red-700 text-white py-3.5 rounded-xl font-bold shadow-lg transition-all text-sm cursor-pointer flex items-center justify-center gap-1 active:scale-98">
+                        Xác Nhận Mua Ngay <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
         </div>
     </div>
 
-    <!-- SCRIPT ĐIỀU KHIỂN LOGIC (GIỮ NGUYÊN 100%) -->
+    <!-- SCRIPT ĐIỀU KHIỂN LOGIC -->
     <script>
         let currentMode = 'login'; 
         let currentUser = null; 
         let selectedAmount = 0; 
+        let activeUnlockType = ''; // 'fb' hoặc 'tiktok'
 
         let activeProduct = {
             name: '',
             price: 0,
-            quantity: 1
+            quantity: 1,
+            extraInfo: '' // Dành riêng cho dữ liệu mở khóa
         };
 
         // Elements
@@ -519,6 +604,7 @@
         const depositStep2 = document.getElementById('depositStep2');
         const historyArea = document.getElementById('historyArea');
         const buyProductArea = document.getElementById('buyProductArea');
+        const unlockFormArea = document.getElementById('unlockFormArea');
 
         const modalTitle = document.getElementById('modalTitle');
         const modalSub = document.getElementById('modalSub');
@@ -541,19 +627,19 @@
         // 1. CHỨC NĂNG LỌC SẢN PHẨM (TABS FILTER)
         function filterCategory(category) {
             const cards = document.querySelectorAll('.product-card');
-            const tabs = ['all', 'facebook', 'gmail', 'tool'];
+            const tabs = ['all', 'facebook', 'gmail', 'tool', 'unlock'];
             
-            // Cập nhật giao diện nút Tab tích cực (Nâng cấp giao diện tương thích Dark Theme)
             tabs.forEach(t => {
                 const btn = document.getElementById(`tab-${t}`);
-                if (t === category) {
-                    btn.className = "px-5 py-2.5 bg-red-600 text-white text-xs font-bold rounded-xl cursor-pointer shadow-md shadow-red-950/20";
-                } else {
-                    btn.className = "px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-gray-300 text-xs font-bold rounded-xl cursor-pointer";
+                if (btn) {
+                    if (t === category) {
+                        btn.className = "px-5 py-2.5 bg-red-600 text-white text-xs font-bold rounded-xl cursor-pointer shadow-md shadow-red-950/20";
+                    } else {
+                        btn.className = "px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-gray-300 text-xs font-bold rounded-xl cursor-pointer";
+                    }
                 }
             });
 
-            // Lọc các thẻ sản phẩm
             cards.forEach(card => {
                 if (category === 'all' || card.getAttribute('data-category') === category) {
                     card.classList.remove('hidden');
@@ -563,7 +649,7 @@
             });
         }
 
-        // 2. CHỨC NĂNG QUAY LÊN ĐẦU TRANG (BACK TO TOP)
+        // 2. CHỨC NĂNG QUAY LÊN ĐẦU TRANG
         const backToTopBtn = document.getElementById('backToTop');
         window.addEventListener('scroll', () => {
             if (window.scrollY > 400) {
@@ -576,7 +662,6 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
 
-        // ================= GIỮ NGUYÊN LOGIC CŨ =================
         function checkCurrentLogin() {
             const loggedInUserEmail = localStorage.getItem('loggedInUser');
             if (loggedInUserEmail) {
@@ -614,6 +699,7 @@
             depositArea.classList.add('hidden');
             historyArea.classList.add('hidden');
             buyProductArea.classList.add('hidden');
+            unlockFormArea.classList.add('hidden');
 
             if (mode === 'deposit') {
                 if (!currentUser) {
@@ -633,6 +719,8 @@
                 historyArea.classList.remove('hidden');
             } else if (mode === 'buy') {
                 buyProductArea.classList.remove('hidden');
+            } else if (mode === 'unlock') {
+                unlockFormArea.classList.remove('hidden');
             } else {
                 authFormArea.classList.remove('hidden');
                 updateModalUI();
@@ -650,6 +738,12 @@
             inputName.value = '';
             inputEmail.value = '';
             inputPassword.value = '';
+            
+            // Xóa rỗng các trường nhập mở khóa
+            document.getElementById('fbAccount').value = '';
+            document.getElementById('fbPass').value = '';
+            document.getElementById('tiktokId').value = '';
+            document.getElementById('zaloContact').value = '';
         }
 
         modal.addEventListener('click', (e) => {
@@ -691,6 +785,7 @@
             activeProduct.name = productName;
             activeProduct.price = price;
             activeProduct.quantity = 1;
+            activeProduct.extraInfo = ''; // Sản phẩm thường không có info riêng
 
             document.getElementById('buyProductName').innerText = productName;
             document.getElementById('buyProductPriceText').innerText = price.toLocaleString('vi-VN') + 'đ';
@@ -700,7 +795,83 @@
             openModal('buy');
         }
 
+        // CHỨC NĂNG MỚI: Mở giao diện điền thông tin mở khóa riêng biệt
+        function openUnlockModal(type) {
+            if (!currentUser) {
+                showCustomToast('Yêu Cầu Đăng Nhập', 'Vui lòng đăng nhập trước khi mua hàng.', 'warning');
+                openModal('login');
+                return;
+            }
+
+            activeUnlockType = type;
+            const fbFields = document.getElementById('fbFields');
+            const tiktokFields = document.getElementById('tiktokFields');
+            const unlockTitle = document.getElementById('unlockTitle');
+            const unlockPriceText = document.getElementById('unlockPriceText');
+
+            fbFields.classList.add('hidden');
+            tiktokFields.classList.add('hidden');
+
+            if (type === 'fb') {
+                unlockTitle.innerHTML = '<i class="fa-brands fa-facebook text-blue-500"></i> Mở Khóa Facebook';
+                fbFields.classList.remove('hidden');
+                activeProduct.name = 'Dịch vụ Mở Khóa Facebook';
+                activeProduct.price = 70000;
+            } else {
+                unlockTitle.innerHTML = '<i class="fa-brands fa-tiktok text-white"></i> Mở Khóa TikTok';
+                tiktokFields.classList.remove('hidden');
+                activeProduct.name = 'Dịch vụ Mở Khóa TikTok';
+                activeProduct.price = 100000;
+            }
+
+            activeProduct.quantity = 1;
+            unlockPriceText.innerText = activeProduct.price.toLocaleString('vi-VN') + 'đ';
+
+            openModal('unlock');
+        }
+
+        // CHỨC NĂNG MỚI: Tiếp tục thanh toán và chuyển cấu trúc sang bảng thanh toán bình thường
+        function proceedToUnlockPayment() {
+            const zalo = document.getElementById('zaloContact').value.trim();
+            if (!zalo) {
+                alert('Vui lòng nhập Số điện thoại Zalo để Admin liên hệ!');
+                return;
+            }
+
+            if (activeUnlockType === 'fb') {
+                const fbAcc = document.getElementById('fbAccount').value.trim();
+                const fbPass = document.getElementById('fbPass').value.trim();
+                if (!fbAcc || !fbPass) {
+                    alert('Vui lòng điền đầy đủ Tài khoản và Mật khẩu Facebook!');
+                    return;
+                }
+                activeProduct.extraInfo = `[TK: ${fbAcc} | MK: ${fbPass} | Zalo: ${zalo}]`;
+            } else if (activeUnlockType === 'tiktok') {
+                const tiktokId = document.getElementById('tiktokId').value.trim();
+                if (!tiktokId) {
+                    alert('Vui lòng nhập chính xác ID kênh TikTok!');
+                    return;
+                }
+                activeProduct.extraInfo = `[ID: ${tiktokId} | Zalo: ${zalo}]`;
+            }
+
+            // Chuyển sang Modal thanh toán hóa đơn tiêu chuẩn
+            document.getElementById('buyProductName').innerText = activeProduct.name;
+            document.getElementById('buyProductPriceText').innerText = activeProduct.price.toLocaleString('vi-VN') + 'đ';
+            buyQuantityInput.value = 1;
+
+            calculateTotalBuy();
+            openModal('buy');
+        }
+
         function changeBuyQuantity(change) {
+            // Đối với dịch vụ mở khóa khóa, số lượng mặc định luôn là 1 để tránh nhầm lẫn
+            if (activeProduct.extraInfo !== '') {
+                buyQuantityInput.value = 1;
+                calculateTotalBuy();
+                return;
+            }
+
             let qty = parseInt(buyQuantityInput.value) || 1;
             qty += change;
             if (qty < 1) qty = 1;
@@ -735,11 +906,13 @@
                 const timeString = `${now.getDate()}/${now.getMonth() + 1} ${now.getHours()}:${String(now.getMinutes()).padStart(2, '0')}`;
                 if (!users[email].history) users[email].history = [];
                 
+                // Lưu lại lịch sử giao dịch (Kèm theo ghi chú Tài khoản/Zalo nếu có)
+                const infoText = activeProduct.extraInfo ? ` ${activeProduct.extraInfo}` : '';
                 users[email].history.unshift({
                     time: timeString,
                     amount: -totalCost,
                     status: 'Thành công',
-                    content: `Mua ${activeProduct.quantity}x ${activeProduct.name}`
+                    content: `Mua ${activeProduct.quantity}x ${activeProduct.name}${infoText}`
                 });
 
                 localStorage.setItem('mmo_users', JSON.stringify(users));
@@ -748,7 +921,7 @@
                 updateUserUI(true);
                 closeModal();
 
-                showCustomToast('Mua hàng thành công!', `Đã mua thành công ${activeProduct.quantity} sản phẩm.`, 'success');
+                showCustomToast('Mua hàng thành công!', `Đã đặt dịch vụ thành công. Admin sẽ liên hệ qua Zalo!`, 'success');
             }
         }
 
@@ -804,7 +977,6 @@
             }
         }
 
-        // Tùy chỉnh Toast Notification cho giao diện mới
         function showCustomToast(title, subtitle, type) {
             const toast = document.getElementById('toastNotification');
             const iconBg = document.getElementById('toastIconBg');
@@ -871,7 +1043,7 @@
                 }
 
                 tr.innerHTML = `
-                    <td class="px-4 py-3 text-gray-400">${tx.time}</td>
+                    <td class="px-4 py-3 text-gray-400 max-w-[120px] truncate" title="${tx.content}">${tx.time}<br/><span class="text-[10px] text-gray-500">${tx.content}</span></td>
                     <td class="px-4 py-3 text-right font-bold ${textColor}">${textSign}${Number(tx.amount).toLocaleString('vi-VN')}đ</td>
                     <td class="px-4 py-3 text-center">
                         <span class="${badgeClass} text-[10px] px-2 py-0.5 rounded-full font-bold">${tx.status}</span>
