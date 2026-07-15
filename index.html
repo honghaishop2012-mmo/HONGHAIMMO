@@ -11,6 +11,17 @@
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans">
 
+    <!-- THÔNG BÁO POPUP HIỆN ĐẠI (TOAST NOTIFICATION) -->
+    <div id="toastNotification" class="fixed top-5 right-5 z-50 transform translate-x-full opacity-0 transition-all duration-500 ease-out flex items-center bg-gray-900 text-white px-6 py-4 rounded-2xl shadow-2xl border border-gray-800 max-w-sm">
+        <div class="bg-amber-500/20 text-amber-400 p-2.5 rounded-xl mr-4 flex items-center justify-center text-lg">
+            <i class="fa-solid fa-hourglass-half animate-spin"></i>
+        </div>
+        <div>
+            <h4 class="font-bold text-sm text-white">Đơn nạp tiền đã được gửi!</h4>
+            <p class="text-xs text-gray-400 mt-1">Vui lòng chờ 2-3 phút để hệ thống kiểm tra và phê duyệt tự động.</p>
+        </div>
+    </div>
+
     <!-- HEADER / THANH ĐIỀU HƯỚNG -->
     <header class="bg-white shadow-sm sticky top-0 z-40">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
@@ -27,16 +38,16 @@
                 <a href="#dich-vu" class="hover:text-red-600 transition-colors">Dịch Vụ</a>
             </nav>
 
-            <!-- KHU VỰC THÀNH VIÊN (Sẽ thay đổi dựa trên trạng thái Đăng Nhập) -->
+            <!-- KHU VỰC THÀNH VIÊN -->
             <div id="navAuthArea" class="flex items-center space-x-4">
-                <!-- Chưa đăng nhập: Hiện nút Đăng Nhập / Đăng Ký -->
+                <!-- Chưa đăng nhập -->
                 <div id="guestMenu" class="flex items-center space-x-4">
                     <button onclick="openModal('login')" class="font-medium text-gray-600 hover:text-red-600 transition-colors cursor-pointer">Đăng Nhập</button>
                     <button onclick="openModal('register')" class="bg-red-600 hover:bg-red-700 text-white px-5 py-2.5 rounded-full font-medium shadow-md hover:shadow-lg transition-all cursor-pointer">Đăng Ký</button>
                 </div>
 
-                <!-- Đã đăng nhập: Hiện số dư, nút Nạp Tiền, Lịch Sử và nút Đăng Xuất -->
-                <div id="userMenu" class="hidden flex items-center space-x-3 sm:space-x-6">
+                <!-- Đã đăng nhập -->
+                <div id="userMenu" class="hidden flex items-center space-x-3 sm:space-x-4">
                     <div class="text-right">
                         <p class="text-xs text-gray-500">Xin chào, <span id="userNameDisplay" class="font-bold text-gray-800">Khách</span></p>
                         <p class="text-sm font-extrabold text-red-600">Số dư: <span id="userBalanceDisplay">0</span>đ</p>
@@ -47,7 +58,7 @@
                     </button>
                     <!-- Nút Lịch Sử Nạp -->
                     <button onclick="openModal('history')" class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg text-sm font-bold transition-all cursor-pointer flex items-center gap-1.5">
-                        <i class="fa-solid fa-clock-rotate-left"></i> Lịch sử nạp
+                        <i class="fa-solid fa-clock-rotate-left"></i> Lịch sử
                     </button>
                     <!-- Nút Đăng Xuất -->
                     <button onclick="logout()" class="text-gray-400 hover:text-red-600 text-lg p-1 transition-colors cursor-pointer" title="Đăng xuất">
@@ -185,7 +196,7 @@
         </div>
     </footer>
 
-    <!-- ================= MODAL CHUNG (ĐĂNG NHẬP / ĐĂNG KÝ / NẠP TIỀN / LỊCH SỬ) ================= -->
+    <!-- ================= MODAL CHUNG ================= -->
     <div id="authModal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 px-4 backdrop-blur-sm">
         <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl p-8 relative transform scale-95 transition-transform duration-300" id="modalContent">
             
@@ -202,7 +213,6 @@
                 </div>
 
                 <form onsubmit="handleSubmit(event)" class="space-y-5">
-                    <!-- Ô Nhập Tên Tài Khoản (Đăng Ký) -->
                     <div id="nameField" class="hidden">
                         <label class="block text-sm font-medium text-gray-700 mb-1.5">Họ và Tên</label>
                         <div class="relative">
@@ -211,7 +221,6 @@
                         </div>
                     </div>
 
-                    <!-- Ô Nhập Email -->
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1.5">Địa chỉ Email</label>
                         <div class="relative">
@@ -220,7 +229,6 @@
                         </div>
                     </div>
 
-                    <!-- Ô Nhập Mật Khẩu -->
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1.5">Mật khẩu</label>
                         <div class="relative">
@@ -240,70 +248,106 @@
                 </div>
             </div>
 
-            <!-- 2. GIAO DIỆN NẠP TIỀN TỰ ĐỘNG -->
+            <!-- 2. GIAO DIỆN NẠP TIỀN 2 BƯỚC (CHUYÊN NGHIỆP) -->
             <div id="depositArea" class="hidden">
-                <div class="text-center mb-6">
-                    <h3 class="text-2xl font-bold text-gray-900 flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-credit-card text-red-600"></i> Nạp Tiền Tài Khoản
-                    </h3>
-                    <p class="text-xs text-gray-500 mt-1">Quét mã QR để chuyển khoản tự động không mất phí</p>
+                <!-- BƯỚC 1: NHẬP SỐ TIỀN & CHỌN MỆNH GIÁ NHANH -->
+                <div id="depositStep1">
+                    <div class="text-center mb-6">
+                        <h3 class="text-2xl font-bold text-gray-900 flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-wallet text-red-600"></i> Nạp Tiền Tài Khoản
+                        </h3>
+                        <p class="text-xs text-gray-500 mt-1">Vui lòng chọn hoặc nhập số tiền bạn muốn nạp</p>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Nhập số tiền nạp (VNĐ)</label>
+                            <input type="number" id="depositAmountInput" placeholder="Ví dụ: 100000" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-red-500 focus:bg-white text-base font-bold text-gray-900 transition-all">
+                        </div>
+
+                        <!-- Các nút nạp nhanh -->
+                        <div>
+                            <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Chọn nhanh mệnh giá</label>
+                            <div class="grid grid-cols-2 gap-2">
+                                <button onclick="setQuickAmount(50000)" class="py-2.5 bg-gray-50 hover:bg-red-50 hover:text-red-600 border border-gray-200 hover:border-red-200 rounded-xl font-bold text-sm text-gray-700 transition-all cursor-pointer">50.000đ</button>
+                                <button onclick="setQuickAmount(100000)" class="py-2.5 bg-gray-50 hover:bg-red-50 hover:text-red-600 border border-gray-200 hover:border-red-200 rounded-xl font-bold text-sm text-gray-700 transition-all cursor-pointer">100.000đ</button>
+                                <button onclick="setQuickAmount(200000)" class="py-2.5 bg-gray-50 hover:bg-red-50 hover:text-red-600 border border-gray-200 hover:border-red-200 rounded-xl font-bold text-sm text-gray-700 transition-all cursor-pointer">200.000đ</button>
+                                <button onclick="setQuickAmount(500000)" class="py-2.5 bg-gray-50 hover:bg-red-50 hover:text-red-600 border border-gray-200 hover:border-red-200 rounded-xl font-bold text-sm text-gray-700 transition-all cursor-pointer">500.000đ</button>
+                            </div>
+                        </div>
+
+                        <button onclick="goToDepositStep2()" class="w-full bg-red-600 hover:bg-red-700 text-white py-3.5 rounded-xl font-bold shadow-md transition-all text-sm cursor-pointer">
+                            Tiếp tục thanh toán <i class="fa-solid fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
                 </div>
 
-                <div class="flex flex-col items-center">
-                    <div class="border-4 border-red-100 rounded-2xl p-2 bg-white shadow-sm max-w-[220px]">
-                        <img id="qrImage" src="qr-thanh-toan.png" alt="Mã QR Đặng Hồng Hải" class="w-full rounded-lg object-contain" onerror="this.src='https://placehold.co/300x400/fff/991b1b?text=DANG+HONG+HAI+QR'">
+                <!-- BƯỚC 2: QUÉT MÃ QR & HOÀN TẤT -->
+                <div id="depositStep2" class="hidden">
+                    <div class="text-center mb-4">
+                        <button onclick="goBackToStep1()" class="absolute left-6 top-5 text-gray-400 hover:text-red-600 text-sm font-semibold flex items-center gap-1 cursor-pointer">
+                            <i class="fa-solid fa-arrow-left"></i> Trở lại
+                        </button>
+                        <h3 class="text-xl font-bold text-gray-900">Quét Mã Thanh Toán</h3>
+                        <p class="text-xs text-gray-500 mt-1">Chuyển đúng số tiền để hệ thống tự xử lý</p>
                     </div>
-                    
-                    <div class="w-full mt-6 bg-red-50/50 border border-red-100 rounded-xl p-4 text-sm space-y-2.5">
-                        <div class="flex justify-between items-center">
-                            <span class="text-gray-500">Chủ Tài Khoản:</span>
-                            <span class="font-bold text-gray-900 uppercase">DANG HONG HAI</span>
+
+                    <div class="flex flex-col items-center">
+                        <!-- Hiển thị QR -->
+                        <div class="border-4 border-red-100 rounded-2xl p-2 bg-white shadow-sm max-w-[200px] relative">
+                            <img id="qrImage" src="qr-thanh-toan.png" alt="Mã QR Đặng Hồng Hải" class="w-full rounded-lg object-contain" onerror="this.src='https://placehold.co/300x400/fff/991b1b?text=DANG+HONG+HAI+QR'">
                         </div>
-                        <div class="flex justify-between items-center">
-                            <span class="text-gray-500">Nội dung chuyển khoản:</span>
-                            <div class="flex items-center gap-1.5">
-                                <span id="noidungCK" class="font-bold text-red-600 tracking-wider">HONGHAI 12589</span>
-                                <button onclick="copyContent()" class="text-gray-500 hover:text-red-600 text-xs px-1.5 py-0.5 border border-gray-200 rounded bg-white cursor-pointer active:scale-95 transition-all">Copy</button>
+                        
+                        <!-- Chi tiết nạp tiền -->
+                        <div class="w-full mt-5 bg-red-50/50 border border-red-100 rounded-xl p-4 text-xs space-y-2">
+                            <div class="flex justify-between">
+                                <span class="text-gray-500">Chủ tài khoản:</span>
+                                <span class="font-bold text-gray-900">DANG HONG HAI</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-500">Số tiền thanh toán:</span>
+                                <span id="depositValueText" class="font-extrabold text-red-600 text-sm">0đ</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-500">Nội dung chuyển khoản:</span>
+                                <div class="flex items-center gap-1">
+                                    <span id="noidungCK" class="font-bold text-red-600 tracking-wider">HONGHAI 12589</span>
+                                    <button onclick="copyContent()" class="text-[10px] text-gray-500 px-1 py-0.5 border border-gray-200 rounded bg-white cursor-pointer active:scale-95 transition-all">Copy</button>
+                                </div>
                             </div>
                         </div>
-                        <div class="pt-2 border-t border-red-100/60 flex flex-col gap-2">
-                            <label class="block text-xs font-bold text-gray-700">Mô phỏng nạp tiền (Demo):</label>
-                            <div class="flex gap-2">
-                                <input type="number" id="demoDepositAmount" placeholder="Nhập số tiền nạp..." class="w-full px-3 py-1.5 bg-white border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-red-500">
-                                <button onclick="simulateDeposit()" class="bg-red-600 hover:bg-red-700 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer shrink-0">Nạp thử</button>
-                            </div>
-                        </div>
+
+                        <!-- Nút hoàn tất chuyển khoản -->
+                        <button onclick="submitDepositOrder()" class="w-full bg-green-600 hover:bg-green-700 text-white py-3.5 rounded-xl font-bold shadow-md hover:shadow-lg transition-all text-sm mt-5 cursor-pointer">
+                            <i class="fa-solid fa-check"></i> Tôi đã chuyển khoản (Hoàn tất)
+                        </button>
                     </div>
                 </div>
             </div>
 
-            <!-- 3. GIAO DIỆN KIỂM TRA LỊCH SỬ NẠP TIỀN -->
+            <!-- 3. GIAO DIỆN LỊCH SỬ NẠP TIỀN -->
             <div id="historyArea" class="hidden">
                 <div class="text-center mb-6">
                     <h3 class="text-2xl font-bold text-gray-900 flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-clock-rotate-left text-red-600"></i> Lịch Sử Nạp Tiền
+                        <i class="fa-solid fa-clock-rotate-left text-red-600"></i> Lịch Sử Giao Dịch
                     </h3>
-                    <p class="text-xs text-gray-500 mt-1">Danh sách các giao dịch nạp tiền của bạn</p>
+                    <p class="text-xs text-gray-500 mt-1">Danh sách yêu cầu nạp tiền của bạn</p>
                 </div>
 
-                <!-- Bảng hiển thị danh sách -->
                 <div class="overflow-x-auto max-h-60 overflow-y-auto border border-gray-100 rounded-xl">
                     <table class="min-w-full text-xs text-left text-gray-500">
                         <thead class="text-xxs uppercase bg-gray-50 text-gray-700 sticky top-0">
                             <tr>
                                 <th class="px-4 py-3">Thời gian</th>
-                                <th class="px-4 py-3">Nội dung</th>
                                 <th class="px-4 py-3 text-right">Số tiền</th>
                                 <th class="px-4 py-3 text-center">Trạng thái</th>
                             </tr>
                         </thead>
-                        <tbody id="historyTableBody">
-                            <!-- JS tự render danh sách giao dịch ở đây -->
-                        </tbody>
+                        <tbody id="historyTableBody"></tbody>
                     </table>
                 </div>
                 <div id="noHistoryText" class="text-center text-gray-400 text-xs py-8 hidden">
-                    Bạn chưa có giao dịch nạp tiền nào.
+                    Bạn chưa có giao dịch nào.
                 </div>
             </div>
 
@@ -313,13 +357,16 @@
     <!-- SCRIPT ĐIỀU KHIỂN LOGIC -->
     <script>
         let currentMode = 'login'; 
-        let currentUser = null; // Quản lý người dùng đã đăng nhập
+        let currentUser = null; 
+        let selectedAmount = 0; // Lưu số tiền đã chọn để nạp
 
-        // Element Variables
+        // Elements
         const modal = document.getElementById('authModal');
         const modalContent = document.getElementById('modalContent');
         const authFormArea = document.getElementById('authFormArea');
         const depositArea = document.getElementById('depositArea');
+        const depositStep1 = document.getElementById('depositStep1');
+        const depositStep2 = document.getElementById('depositStep2');
         const historyArea = document.getElementById('historyArea');
 
         const modalTitle = document.getElementById('modalTitle');
@@ -333,13 +380,12 @@
         const inputName = document.getElementById('inputName');
         const inputEmail = document.getElementById('inputEmail');
         const inputPassword = document.getElementById('inputPassword');
+        const depositAmountInput = document.getElementById('depositAmountInput');
 
-        // Khởi động khi tải xong trang web
         window.addEventListener('DOMContentLoaded', () => {
             checkCurrentLogin();
         });
 
-        // Hàm kiểm tra trạng thái đăng nhập
         function checkCurrentLogin() {
             const loggedInUserEmail = localStorage.getItem('loggedInUser');
             if (loggedInUserEmail) {
@@ -353,7 +399,6 @@
             updateUserUI(false);
         }
 
-        // Cập nhật hiển thị giao diện người dùng dựa trên trạng thái đăng nhập
         function updateUserUI(isLoggedIn) {
             const guestMenu = document.getElementById('guestMenu');
             const userMenu = document.getElementById('userMenu');
@@ -363,7 +408,6 @@
                 userMenu.classList.remove('hidden');
                 document.getElementById('userNameDisplay').innerText = currentUser.name;
                 document.getElementById('userBalanceDisplay').innerText = Number(currentUser.balance).toLocaleString('vi-VN');
-                // Tự động tạo mã cú pháp nạp tiền ngẫu nhiên theo tài khoản người dùng
                 document.getElementById('noidungCK').innerText = `HONGHAI ${currentUser.id}`;
             } else {
                 guestMenu.classList.remove('hidden');
@@ -372,11 +416,9 @@
             }
         }
 
-        // Hàm mở cửa sổ bật lên
         function openModal(mode) {
             currentMode = mode;
             
-            // Ẩn tất cả các khu vực trước
             authFormArea.classList.add('hidden');
             depositArea.classList.add('hidden');
             historyArea.classList.add('hidden');
@@ -387,7 +429,9 @@
                     openModal('login');
                     return;
                 }
+                // Reset về bước 1 nạp tiền
                 depositArea.classList.remove('hidden');
+                goBackToStep1();
             } else if (mode === 'history') {
                 if (!currentUser) {
                     alert('Bạn cần đăng nhập để kiểm tra lịch sử nạp!');
@@ -406,12 +450,10 @@
             modalContent.classList.add('scale-100');
         }
 
-        // Đóng cửa sổ bật lên
         function closeModal() {
             modal.classList.add('opacity-0', 'pointer-events-none');
             modalContent.classList.remove('scale-100');
             modalContent.classList.add('scale-95');
-            // Reset input form
             inputName.value = '';
             inputEmail.value = '';
             inputPassword.value = '';
@@ -421,7 +463,6 @@
             if (e.target === modal) closeModal();
         });
 
-        // Chuyển chế độ Đăng Nhập / Đăng Ký
         function toggleMode() {
             currentMode = currentMode === 'login' ? 'register' : 'login';
             updateModalUI();
@@ -447,106 +488,82 @@
             }
         }
 
-        // Xử lý nộp form Đăng Ký và Đăng Nhập
-        function handleSubmit(event) {
-            event.preventDefault();
-            
-            const email = inputEmail.value.trim().toLowerCase();
-            const password = inputPassword.value;
-            const name = inputName.value.trim();
+        // ================= XỬ LÝ NẠP TIỀN PHÂN LUỒNG =================
 
-            let users = JSON.parse(localStorage.getItem('mmo_users')) || {};
-
-            if (currentMode === 'register') {
-                // XỬ LÝ ĐĂNG KÝ
-                if (users[email]) {
-                    alert('Địa chỉ Email này đã được đăng ký trước đó!');
-                    return;
-                }
-
-                // Tạo User mới
-                const randomId = Math.floor(10000 + Math.random() * 90000); // Mã ID 5 số ngẫu nhiên
-                users[email] = {
-                    id: randomId,
-                    name: name,
-                    email: email,
-                    password: password,
-                    balance: 0,
-                    history: []
-                };
-
-                localStorage.setItem('mmo_users', JSON.stringify(users));
-                alert('Tạo tài khoản thành công! Bây giờ bạn hãy Đăng Nhập để vào tài khoản của mình nhé.');
-                
-                // Sau khi tạo xong bắt buộc người dùng chuyển sang giao diện đăng nhập
-                openModal('login');
-            } else {
-                // XỬ LÝ ĐĂNG NHẬP
-                if (!users[email] || users[email].password !== password) {
-                    alert('Email hoặc Mật khẩu không chính xác!');
-                    return;
-                }
-
-                // Đăng nhập thành công
-                localStorage.setItem('loggedInUser', email);
-                currentUser = users[email];
-                updateUserUI(true);
-                alert(`Đăng nhập thành công! Chào mừng ${currentUser.name} quay trở lại.`);
-                closeModal();
-            }
+        // Gán mệnh giá nạp nhanh
+        function setQuickAmount(amount) {
+            depositAmountInput.value = amount;
+            selectedAmount = amount;
         }
 
-        // ĐĂNG XUẤT TÀI KHOẢN
-        function logout() {
-            if(confirm('Bạn có chắc chắn muốn đăng xuất tài khoản?')) {
-                localStorage.removeItem('loggedInUser');
-                updateUserUI(false);
-                alert('Đã đăng xuất thành công.');
-            }
-        }
-
-        // GIẢ LẬP NẠP TIỀN (Chỉ dùng để Demo kiểm tra thử nghiệm hoạt động)
-        function simulateDeposit() {
-            const amountInput = document.getElementById('demoDepositAmount');
-            const amount = parseInt(amountInput.value);
-
-            if (isNaN(amount) || amount <= 0) {
-                alert('Vui lòng nhập số tiền nạp hợp lệ!');
+        // Chuyển sang bước hiển thị QR
+        function goToDepositStep2() {
+            const val = parseInt(depositAmountInput.value);
+            if (isNaN(val) || val < 10000) {
+                alert('Vui lòng chọn hoặc nhập số tiền nạp từ 10.000đ trở lên!');
                 return;
             }
+            selectedAmount = val;
 
-            // Cập nhật cơ sở dữ liệu local
+            // Đổi giao diện sang QR
+            document.getElementById('depositValueText').innerText = selectedAmount.toLocaleString('vi-VN') + 'đ';
+            depositStep1.classList.add('hidden');
+            depositStep2.classList.remove('hidden');
+        }
+
+        // Trở lại bước 1
+        function goBackToStep1() {
+            depositAmountInput.value = selectedAmount > 0 ? selectedAmount : '';
+            depositStep2.classList.add('hidden');
+            depositStep1.classList.remove('hidden');
+        }
+
+        // Khách bấm HOÀN TẤT gửi đơn nạp
+        function submitDepositOrder() {
             let users = JSON.parse(localStorage.getItem('mmo_users')) || {};
             const email = currentUser.email;
 
             if (users[email]) {
-                users[email].balance += amount;
-
-                // Thêm vào lịch sử giao dịch
                 const now = new Date();
                 const timeString = `${now.getDate()}/${now.getMonth() + 1} ${now.getHours()}:${String(now.getMinutes()).padStart(2, '0')}`;
                 
+                // Lưu giao dịch vào lịch sử với trạng thái "Chờ duyệt"
                 const transaction = {
                     time: timeString,
-                    content: `Nạp tiền qua QR (Demo)`,
-                    amount: amount,
-                    status: 'Thành công'
+                    amount: selectedAmount,
+                    status: 'Chờ duyệt'
                 };
 
-                users[email].history.unshift(transaction); // Thêm giao dịch mới lên đầu
+                if (!users[email].history) {
+                    users[email].history = [];
+                }
+                users[email].history.unshift(transaction); 
                 
-                // Lưu lại
                 localStorage.setItem('mmo_users', JSON.stringify(users));
                 currentUser = users[email];
                 
                 updateUserUI(true);
-                amountInput.value = '';
-                alert(`Nạp thử thành công! Số dư đã được cộng thêm +${amount.toLocaleString('vi-VN')}đ`);
                 closeModal();
+
+                // Hiển thị Popup Toast Notification siêu hiện đại
+                showToast();
             }
         }
 
-        // RENDER LỊCH SỬ NẠP TIỀN
+        // Hàm kích hoạt Toast mượt mà
+        function showToast() {
+            const toast = document.getElementById('toastNotification');
+            toast.classList.remove('translate-x-full', 'opacity-0');
+            toast.classList.add('translate-x-0', 'opacity-100');
+
+            // Tự động ẩn đi sau 5 giây
+            setTimeout(() => {
+                toast.classList.remove('translate-x-0', 'opacity-100');
+                toast.classList.add('translate-x-full', 'opacity-0');
+            }, 5000);
+        }
+
+        // ================= XỬ LÝ LỊCH SỬ NẠP =================
         function renderHistory() {
             const tbody = document.getElementById('historyTableBody');
             const noHistoryText = document.getElementById('noHistoryText');
@@ -563,19 +580,73 @@
             history.forEach(tx => {
                 const tr = document.createElement('tr');
                 tr.className = "border-b border-gray-50 hover:bg-gray-50/50";
+                
+                let badgeClass = "bg-amber-100 text-amber-800";
+                if(tx.status === 'Thành công') {
+                    badgeClass = "bg-green-100 text-green-800";
+                }
+
                 tr.innerHTML = `
                     <td class="px-4 py-3 text-gray-500">${tx.time}</td>
-                    <td class="px-4 py-3 font-medium text-gray-900">${tx.content}</td>
-                    <td class="px-4 py-3 text-right font-bold text-green-600">+${Number(tx.amount).toLocaleString('vi-VN')}đ</td>
+                    <td class="px-4 py-3 text-right font-bold text-gray-900">${Number(tx.amount).toLocaleString('vi-VN')}đ</td>
                     <td class="px-4 py-3 text-center">
-                        <span class="bg-green-100 text-green-800 text-[10px] px-2 py-0.5 rounded-full font-bold">${tx.status}</span>
+                        <span class="${badgeClass} text-[10px] px-2 py-0.5 rounded-full font-bold">${tx.status}</span>
                     </td>
                 `;
                 tbody.appendChild(tr);
             });
         }
 
-        // Xử lý nút nạp tiền to ở giữa màn hình chính
+        // Xử lý nộp form Đăng Ký và Đăng Nhập
+        function handleSubmit(event) {
+            event.preventDefault();
+            const email = inputEmail.value.trim().toLowerCase();
+            const password = inputPassword.value;
+            const name = inputName.value.trim();
+
+            let users = JSON.parse(localStorage.getItem('mmo_users')) || {};
+
+            if (currentMode === 'register') {
+                if (users[email]) {
+                    alert('Địa chỉ Email này đã được đăng ký trước đó!');
+                    return;
+                }
+
+                const randomId = Math.floor(10000 + Math.random() * 90000);
+                users[email] = {
+                    id: randomId,
+                    name: name,
+                    email: email,
+                    password: password,
+                    balance: 0,
+                    history: []
+                };
+
+                localStorage.setItem('mmo_users', JSON.stringify(users));
+                alert('Tạo tài khoản thành công! Bây giờ bạn hãy Đăng Nhập để vào tài khoản của mình nhé.');
+                openModal('login');
+            } else {
+                if (!users[email] || users[email].password !== password) {
+                    alert('Email hoặc Mật khẩu không chính xác!');
+                    return;
+                }
+
+                localStorage.setItem('loggedInUser', email);
+                currentUser = users[email];
+                updateUserUI(true);
+                alert(`Đăng nhập thành công! Chào mừng ${currentUser.name} quay trở lại.`);
+                closeModal();
+            }
+        }
+
+        function logout() {
+            if(confirm('Bạn có chắc chắn muốn đăng xuất tài khoản?')) {
+                localStorage.removeItem('loggedInUser');
+                updateUserUI(false);
+                alert('Đã đăng xuất thành công.');
+            }
+        }
+
         function handleHeroDepositBtn() {
             if (currentUser) {
                 openModal('deposit');
@@ -585,7 +656,6 @@
             }
         }
 
-        // Tính năng mua hàng nhanh
         function buyProduct(productName) {
             if (!currentUser) {
                 alert(`Bạn đã chọn mua: ${productName}. Vui lòng đăng nhập trước khi thực hiện giao dịch!`);
@@ -595,7 +665,6 @@
             }
         }
 
-        // Sao chép nhanh cú pháp nạp tiền
         function copyContent() {
             const content = document.getElementById('noidungCK').innerText;
             navigator.clipboard.writeText(content).then(() => {
