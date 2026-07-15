@@ -22,46 +22,49 @@
         </div>
     </div>
 
-    <!-- HEADER / THANH ĐIỀU HƯỚNG -->
+    <!-- HEADER / THANH ĐIỀU HƯỚNG (ĐÃ TỐI ƯU CHỐNG ĐÈ CHỮ TRÊN MOBILE) -->
     <header class="bg-white shadow-sm sticky top-0 z-40">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <!-- Logo / Tên Web -->
-            <div class="flex items-center space-x-2">
-                <div class="bg-red-600 text-white p-2 rounded-lg font-bold text-xl tracking-wider">TH</div>
-                <span class="font-bold text-xl sm:text-2xl text-gray-900 tracking-tight">Tạo Hoá Hồng Hải <span class="text-red-600">MMO</span></span>
+        <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-2">
+            <!-- Logo / Tên Web (Tự động thu gọn trên Mobile để chống tràn) -->
+            <div class="flex items-center space-x-1.5 shrink-0">
+                <div class="bg-red-600 text-white w-9 h-9 sm:w-10 sm:h-10 rounded-lg font-bold text-base sm:text-xl flex items-center justify-center tracking-wider shrink-0">TH</div>
+                <span class="font-bold text-sm sm:text-2xl text-gray-900 tracking-tight">
+                    <span class="inline md:hidden">MMO</span>
+                    <span class="hidden md:inline">Tạo Hoá Hồng Hải <span class="text-red-600">MMO</span></span>
+                </span>
             </div>
             
-            <!-- Menu chính -->
-            <nav class="hidden md:flex space-x-8 font-medium text-gray-600">
+            <!-- Menu chính (Chỉ hiện trên màn hình lớn) -->
+            <nav class="hidden lg:flex space-x-6 font-medium text-gray-600 shrink-0">
                 <a href="#" class="text-red-600 transition-colors">Trang Chủ</a>
                 <a href="#cua-hang" class="hover:text-red-600 transition-colors">Cửa Hàng</a>
                 <a href="#dich-vu" class="hover:text-red-600 transition-colors">Dịch Vụ</a>
             </nav>
 
-            <!-- KHU VỰC THÀNH VIÊN -->
-            <div id="navAuthArea" class="flex items-center space-x-4">
+            <!-- KHU VỰC THÀNH VIÊN (Căn chỉnh siêu chuẩn, co giãn tự động trên mọi thiết bị) -->
+            <div id="navAuthArea" class="flex items-center gap-1.5 sm:gap-3 shrink-0">
                 <!-- Chưa đăng nhập -->
-                <div id="guestMenu" class="flex items-center space-x-4">
-                    <button onclick="openModal('login')" class="font-medium text-gray-600 hover:text-red-600 transition-colors cursor-pointer">Đăng Nhập</button>
-                    <button onclick="openModal('register')" class="bg-red-600 hover:bg-red-700 text-white px-5 py-2.5 rounded-full font-medium shadow-md hover:shadow-lg transition-all cursor-pointer">Đăng Ký</button>
+                <div id="guestMenu" class="flex items-center space-x-2 sm:space-x-4">
+                    <button onclick="openModal('login')" class="font-medium text-xs sm:text-sm text-gray-600 hover:text-red-600 transition-colors cursor-pointer py-1.5 px-2">Đăng Nhập</button>
+                    <button onclick="openModal('register')" class="bg-red-600 hover:bg-red-700 text-white px-3 py-2 sm:px-5 sm:py-2.5 rounded-full font-medium text-xs sm:text-sm shadow-md transition-all cursor-pointer">Đăng Ký</button>
                 </div>
 
                 <!-- Đã đăng nhập -->
-                <div id="userMenu" class="hidden flex items-center space-x-3 sm:space-x-4">
-                    <div class="text-right">
-                        <p class="text-xs text-gray-500">Xin chào, <span id="userNameDisplay" class="font-bold text-gray-800">Khách</span></p>
-                        <p class="text-sm font-extrabold text-red-600">Số dư: <span id="userBalanceDisplay">0</span>đ</p>
+                <div id="userMenu" class="hidden flex items-center gap-1.5 sm:gap-3">
+                    <div class="text-right leading-tight max-w-[85px] sm:max-w-[150px]">
+                        <p class="text-[10px] sm:text-xs text-gray-500 truncate">Chào, <span id="userNameDisplay" class="font-bold text-gray-800">Khách</span></p>
+                        <p class="text-[11px] sm:text-sm font-extrabold text-red-600 truncate"><span id="userBalanceDisplay">0</span>đ</p>
                     </div>
                     <!-- Nút Nạp Tiền -->
-                    <button onclick="openModal('deposit')" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-bold shadow transition-all cursor-pointer flex items-center gap-1.5">
-                        <i class="fa-solid fa-wallet"></i> Nạp tiền
+                    <button onclick="openModal('deposit')" class="bg-green-600 hover:bg-green-700 text-white px-2 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-[10px] sm:text-xs font-bold shadow transition-all cursor-pointer flex items-center gap-1 shrink-0">
+                        <i class="fa-solid fa-wallet"></i> <span class="hidden sm:inline">Nạp tiền</span>
                     </button>
                     <!-- Nút Lịch Sử Nạp -->
-                    <button onclick="openModal('history')" class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg text-sm font-bold transition-all cursor-pointer flex items-center gap-1.5">
-                        <i class="fa-solid fa-clock-rotate-left"></i> Lịch sử
+                    <button onclick="openModal('history')" class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-2 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-[10px] sm:text-xs font-bold transition-all cursor-pointer flex items-center gap-1 shrink-0">
+                        <i class="fa-solid fa-clock-rotate-left"></i> <span class="hidden sm:inline">Lịch sử</span>
                     </button>
                     <!-- Nút Đăng Xuất -->
-                    <button onclick="logout()" class="text-gray-400 hover:text-red-600 text-lg p-1 transition-colors cursor-pointer" title="Đăng xuất">
+                    <button onclick="logout()" class="text-gray-400 hover:text-red-600 text-sm sm:text-base p-1 transition-colors cursor-pointer shrink-0" title="Đăng xuất">
                         <i class="fa-solid fa-right-from-bracket"></i>
                     </button>
                 </div>
@@ -624,7 +627,7 @@
 
                 showCustomToast(
                     'Mua hàng thành công!', 
-                    `Đã mua thành công ${activeProduct.quantity} sản phẩm. Vui lòng kiểm tra email của bạn!`, 
+                    `Đã mua thành công ${activeProduct.quantity} sản phẩm. Vui lòng kiểm tra tài khoản!`, 
                     'success'
                 );
             }
@@ -636,6 +639,7 @@
             selectedAmount = amount;
         }
 
+        // Đẩy sang bước quét QR
         function goToDepositStep2() {
             const val = parseInt(depositAmountInput.value);
             if (isNaN(val) || val < 10000) {
